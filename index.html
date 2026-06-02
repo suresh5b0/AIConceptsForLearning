@@ -1,884 +1,1092 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Concepts, LLM & AI Agents, Workflows & Model Context Protocol</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 16px;
-            line-height: 1.8;
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        h1 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 3rem;
-            font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .subtitle {
-            color: #666;
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        h2 {
-            color: #fff;
-            font-size: 2rem;
-            font-weight: 700;
-            padding: 15px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px 10px 0 0;
-            margin-top: 30px;
-            margin-bottom: 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        h3 {
-            color: #667eea;
-            font-size: 1.3rem;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        p {
-            margin-bottom: 15px;
-            font-size: 1rem;
-            color: #333;
-        }
-
-        section {
-            margin-bottom: 40px;
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
-        }
-
-        .section-content {
-            padding: 30px;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-left: 5px solid #667eea;
-            padding: 20px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: scale(1.02);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .card h4 {
-            color: inherit;
-            margin-bottom: 10px;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .card p {
-            margin: 0;
-            font-size: 0.95rem;
-            color: inherit;
-        }
-
-        .level {
-            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
-            padding: 25px;
-            margin: 15px 0;
-            border-left: 5px solid #667eea;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .level:hover {
-            background: linear-gradient(135deg, #bbdefb 0%, #e1bee7 100%);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
-        }
-
-        .level b {
-            color: #667eea;
-            font-size: 1.15rem;
-            display: block;
-            margin-bottom: 12px;
-        }
-
-        .level ol,
-        .level ul {
-            margin-left: 25px;
-        }
-
-        .level li {
-            margin-bottom: 10px;
-            color: #333;
-            font-weight: 500;
-        }
-
-        ol,
-        ul {
-            margin-left: 40px;
-            margin-bottom: 20px;
-            font-size: 1rem;
-        }
-
-        li {
-            margin-bottom: 12px;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        .highlight {
-            background-color: #fff9e6;
-            padding: 2px 8px;
-            border-radius: 4px;
-            color: #d97706;
-            font-weight: 600;
-        }
-
-        .badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin: 5px 5px 5px 0;
-        }
-
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .box {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 5px solid #667eea;
-        }
-
-        .box h4 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            color: white;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-                padding: 12px 15px;
-            }
-
-            .section-content {
-                padding: 20px;
-            }
-
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .two-column {
-                grid-template-columns: 1fr;
-            }
-
-            ol,
-            ul {
-                margin-left: 25px;
-            }
-
-            header {
-                padding: 25px;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            h2 {
-                font-size: 1.2rem;
-                padding: 10px 12px;
-            }
-
-            .section-content {
-                padding: 15px;
-            }
-
-            ol,
-            ul {
-                margin-left: 20px;
-                font-size: 0.95rem;
-            }
-
-            li {
-                margin-bottom: 8px;
-            }
-
-            header {
-                padding: 15px;
-            }
-
-            body {
-                padding: 10px;
-            }
-
-            .badge {
-                display: block;
-                margin: 5px 0;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="style.css" />
+    <title>AI Concepts, LLMs, Agentic AI & Model Context Protocol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header>
-        <h1>🤖 AI Concepts & Learning Path</h1>
-        <p class="subtitle">Complete Guide to LLMs, AI Agents, Workflows & Model Context Protocol</p>
-    </header>
-
-    <!-- AI Learning Skills Section -->
-    <section>
-        <h2>📚 AI Learning Skills</h2>
-        <div class="section-content">
-            <p><b>Essential Skills to Master in AI Development</b></p>
-            <div class="card-grid">
-                <div class="card">
-                    <h4>🧠 Machine Learning Fundamentals</h4>
-                    <p>Understanding algorithms, data preprocessing, model evaluation, and validation techniques</p>
-                </div>
-                <div class="card">
-                    <h4>📊 Data Science & Analytics</h4>
-                    <p>Data manipulation, statistical analysis, visualization, and exploratory data analysis</p>
-                </div>
-                <div class="card">
-                    <h4>🔧 Programming & Scripting</h4>
-                    <p>Python, JavaScript, SQL for data handling and model implementation</p>
-                </div>
-                <div class="card">
-                    <h4>🧬 Deep Learning & Neural Networks</h4>
-                    <p>Transformers, CNNs, RNNs, attention mechanisms, and model architectures</p>
-                </div>
-                <div class="card">
-                    <h4>💬 NLP & Language Models</h4>
-                    <p>Tokenization, embeddings, seq2seq models, and transformer-based LLMs</p>
-                </div>
-                <div class="card">
-                    <h4>⚙️ MLOps & Deployment</h4>
-                    <p>Model versioning, monitoring, CI/CD pipelines, and production deployment</p>
-                </div>
-                <div class="card">
-                    <h4>🔐 Ethics & Responsible AI</h4>
-                    <p>Bias detection, fairness, explainability, and security in AI systems</p>
-                </div>
-                <div class="card">
-                    <h4>🎯 Prompt Engineering</h4>
-                    <p>Crafting effective prompts, few-shot learning, and chain-of-thought techniques</p>
+    <div class="page-shell">
+        <header class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">AI Learning Guide</p>
+                <h1>AI Concepts, LLMs, Agentic AI & Model Context Protocol</h1>
+                <p class="hero-text">A modern, beginner-friendly roadmap for AI, Generative AI, Agent workflows, AI
+                    Agents, Agentic AI
+                    LangChain, LangGraph, CrewAI, AutoGen and MCP.</p>
+                <div class="hero-tags">
+                    <a class="hero-tag" href="#prompt-engineering">Prompt Engineering</a>
+                    <a class="hero-tag" href="#llms">Large Language Models (LLMs)</a>
+                    <a class="hero-tag" href="#genai">Generative AI (GenAI)</a>
+                    <a class="hero-tag" href="#agentic-ai">AI Agents</a>
+                    <a class="hero-tag" href="#agentic-ai">Agentic AI</a>
+                    <a class="hero-tag" href="#rag">RAG</a>
+                    <a class="hero-tag" href="#mcp">MCP</a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- AI Agents Concepts Section -->
-    <section>
-        <h2>🎯 AI Agents Concepts - 90 Day Learning Path</h2>
-        <div class="section-content">
-            <p><b>Plan to Build Production Ready AI Application in 90 Days</b></p>
-
-            <div class="level">
-                <b>Level 1 (Beginner) - Weeks 1-3</b>
-                <ol>
-                    <li>Understand the basics of LLM (Large Language Models)</li>
-                    <li>Learn Prompt Engineering for Developers - how to write effective prompts</li>
-                    <li>Learn to call closed and open-source LLM models (API calls, SDKs)</li>
-                    <li>Function calling, prompt passing, and response parsing techniques</li>
-                    <li>Basic app development with LLM integration</li>
-                </ol>
-            </div>
-
-            <div class="level">
-                <b>Level 2 (Intermediate) - Weeks 4-6</b>
-                <ol>
-                    <li>Understanding vector embeddings and vector databases</li>
-                    <li>Learning how to use vector databases for semantic search</li>
-                    <li>Building Retrieval-Augmented Generation (RAG) applications</li>
-                    <li>Creating intelligent chat systems with knowledge bases</li>
-                </ol>
-            </div>
-
-            <div class="level">
-                <b>Level 3 (Advanced) - Weeks 7-9</b>
-                <ol>
-                    <li>Understanding hybrid search (keyword + semantic)</li>
-                    <li>Evaluating RAG performance and optimization</li>
-                    <li>Build multi-modal applications (text + image processing)</li>
-                    <li>Building AI agents with iterative workflows</li>
-                    <li>Building multi-agent systems for complex problem solving</li>
-                </ol>
-            </div>
-
-            <div class="level">
-                <b>Level 4 (Expert) - Weeks 10-12</b>
-                <ol>
-                    <li>Evaluate and benchmark model performance metrics</li>
-                    <li>LLMOps - end-to-end pipelines with model registry and monitoring</li>
-                    <li>Secure AI applications against prompt injection and attacks</li>
-                    <li>Fine-tuning pre-trained LLMs for domain-specific knowledge</li>
-                </ol>
-            </div>
-        </div>
-    </section>
-
-    <!-- LLMs and Fine-tuning Models -->
-    <section>
-        <h2>🧠 LLMs and Fine-tuning Models</h2>
-        <div class="section-content">
-            <h3>Popular LLM Models</h3>
-            <ol>
-                <li><span class="badge">Proprietary</span> ChatGPT (OpenAI) - Advanced conversational AI</li>
-                <li><span class="badge">Proprietary</span> Claude (Anthropic) - Safe and reliable AI assistant</li>
-                <li><span class="badge">Proprietary</span> Gemini (Google) - Multimodal AI model</li>
-                <li><span class="badge">Open Source</span> Meta Llama - Fast and efficient models</li>
-                <li><span class="badge">Open Source</span> Mistral - Lightweight and powerful</li>
-                <li><span class="badge">Open Source</span> Qwen (Alibaba) - Multilingual capabilities</li>
-                <li><span class="badge">Proprietary</span> Perplexity - Search-focused AI</li>
-                <li><span class="badge">Open Source</span> Groq - Ultra-fast inference</li>
-            </ol>
-
-            <h3>Fine-tuning Approaches</h3>
-            <div class="two-column">
-                <div class="box">
-                    <h4>Full Fine-tuning</h4>
+            <div class="hero-panel">
+                <div class="panel-card">
+                    <h2>Start Here</h2>
+                    <p>Follow the three phases, practice with examples, and build agentic systems that go beyond chat.
+                    </p>
+                </div>
+                <div class="panel-card panel-accent">
+                    <h2>Prompt Engineering</h2>
+                    <p>Jump to the prompt engineering guide and see examples for strong AI instructions.</p>
+                    <a class="cta-button" href="#prompt-engineering">Prompt Example</a>
+                    <div class="prompt-image">
+                        <div class="prompt-image-label">Prompt engineering visual</div>
+                    </div>
+                </div>
+                <div class="panel-card panel-accent">
+                    <h2>Example Tools</h2>
                     <ul>
-                        <li>Update all model parameters</li>
-                        <li>Best for domain-specific adaptation</li>
-                        <li>Requires significant computational resources</li>
-                        <li>Takes longer training time</li>
-                    </ul>
-                </div>
-                <div class="box">
-                    <h4>Parameter-Efficient Fine-tuning (PEFT)</h4>
-                    <ul>
-                        <li>LoRA (Low-Rank Adaptation)</li>
-                        <li>QLoRA for quantized models</li>
-                        <li>Adapter modules approach</li>
-                        <li>Reduced memory and compute needs</li>
+                        <li>OpenAI GPT</li>
+                        <li>Google AI</li>
+                        <li>Anthropic / Ollama</li>
+                        <li>LangChain / LangGraph</li>
+                        <li>CrewAI / AutoGen</li>
                     </ul>
                 </div>
             </div>
+        </header>
 
-            <h3>Fine-tuning Use Cases</h3>
-            <ul>
-                <li>Domain-specific knowledge integration (legal, medical, technical)</li>
-                <li>Style and tone customization</li>
-                <li>Task-specific optimization (summarization, classification)</li>
-                <li>Improving performance on niche datasets</li>
-                <li>Reducing hallucinations in specific domains</li>
-            </ul>
-        </div>
-    </section>
+        <nav class="top-nav">
+            <a href="#ai-foundations">Foundations</a>
+            <a href="#llms">Large Language Models (LLMs)</a>
+            <a href="#genai">Generative AI (GenAI)</a>
+            <a href="#prompt-engineering">Prompt Engineering</a>
+            <a href="#workflows">AI Workflows</a>
+            <a href="#rag">RAG</a>
+            <a href="#agentic-ai">Agentic AI</a>
+            <a href="#mcp">MCP</a>
+        </nav>
 
-    <!-- RAG Skills Section -->
-    <section>
-        <h2>🔄 RAG Skills - Retrieval-Augmented Generation</h2>
-        <div class="section-content">
-            <h3>Core RAG Components</h3>
-            <div class="card-grid">
-                <div class="card">
-                    <h4>📄 Document Processing</h4>
-                    <p>Chunking strategies, metadata extraction, document parsing</p>
+        <main>
+            <section id="ai-foundations" class="section intro">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">Phase 1</span>
+                        <h2>AI Foundations</h2>
+                    </div>
                 </div>
-                <div class="card">
-                    <h4>🔍 Retrieval</h4>
-                    <p>Vector search, keyword matching, reranking techniques</p>
+                <div class="section-content">
+                    <p>Build a strong base with core AI concepts, machine learning, neural networks and the ideas behind
+                        Narrow AI, AGI, and Superintelligence.</p>
+                    <div class="topic-grid">
+                        <article class="topic-card">
+                            <h3>What is AI?</h3>
+                            <p>Learn the definition, history, and how AI appears in everyday products.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Types of AI</h3>
+                            <p>Explore Narrow AI, General AI, and the concept of Superintelligence.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Machine Learning Basics</h3>
+                            <p>Study supervised, unsupervised, and reinforcement learning techniques.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Neural Networks</h3>
+                            <p>Understand neurons, layers, activation functions and deep learning fundamentals.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Deep Learning</h3>
+                            <p>See how deep networks and transformers unlock modern AI capabilities.</p>
+                        </article>
+                    </div>
                 </div>
-                <div class="card">
-                    <h4>🧠 Embedding Models</h4>
-                    <p>Text embeddings, semantic similarity, dimensionality</p>
-                </div>
-                <div class="card">
-                    <h4>💾 Vector Databases</h4>
-                    <p>Pinecone, Weaviate, Milvus, Chroma</p>
-                </div>
-                <div class="card">
-                    <h4>🎯 Ranking & Filtering</h4>
-                    <p>Reranker models, similarity thresholds, context selection</p>
-                </div>
-                <div class="card">
-                    <h4>📊 Evaluation Metrics</h4>
-                    <p>ROUGE, BLEU, precision@k, retrieval accuracy</p>
-                </div>
-            </div>
+            </section>
 
-            <h3>Advanced RAG Techniques</h3>
-            <ul>
-                <li><b>Hybrid Search:</b> Combine keyword and semantic search for better results</li>
-                <li><b>Query Expansion:</b> Generate multiple queries to improve retrieval coverage</li>
-                <li><b>Re-ranking:</b> Use cross-encoders to better rank relevant documents</li>
-                <li><b>Multi-stage Retrieval:</b> Coarse-to-fine retrieval pipelines</li>
-                <li><b>Iterative RAG:</b> Multiple retrieval and generation rounds</li>
-                <li><b>Knowledge Graphs:</b> Structured knowledge representation for better retrieval</li>
-                <li><b>Fact Verification:</b> Validate generated responses against source documents</li>
-            </ul>
+            <section id="genai" class="section feature">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">Phase 2</span>
+                        <h2>Generative AI (GenAI)</h2>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Move into generative models, LLMs, transformers, prompt design, RAG, fine-tuning, and safety
+                        practices for new AI applications.</p>
+                    <div class="topic-grid">
+                        <article class="topic-card">
+                            <h3>What is Generative AI?</h3>
+                            <p>Generative AI creates new content like text, images, audio, and code. It uses models
+                                trained on large datasets to produce creative outputs.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Large Language Models (LLMs)</h3>
+                            <p>LLMs are AI models trained to predict and generate language. They power chatbots,
+                                summarization, translation, and knowledge retrieval.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Transformers</h3>
+                            <p>Transformers use attention to process sequences in parallel. They are the foundation for
+                                modern LLMs and multimodal models.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Tokens and Embeddings</h3>
+                            <p>Text is broken into tokens; embeddings convert tokens into numeric vectors that capture
+                                meaning and relationships.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Prompt Engineering</h3>
+                            <p>Prompt engineering designs the instructions given to AI. Good prompts make the model
+                                output more accurate, useful, and safe.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Retrieval-Augmented Generation (RAG)</h3>
+                            <p>RAG combines retrieval from documents with generation. It helps models answer questions
+                                using up-to-date or domain-specific knowledge.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Fine-Tuning</h3>
+                            <p>Fine-tuning adapts a pre-trained model to a specialized task or domain. This improves
+                                performance on business-specific data.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>AI Safety and Hallucinations</h3>
+                            <p>Safety focuses on reducing bias, errors, and harmful outputs. Hallucinations are when
+                                models generate plausible but incorrect information.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Multimodal AI</h3>
+                            <p>Multimodal AI handles text, images, audio, and video. It enables richer experiences like
+                                image captioning and voice-assisted workflows.</p>
+                        </article>
+                    </div>
+                    <div class="box popular-examples">
+                        <h3>Popular Generative AI Examples</h3>
+                        <ul>
+                            <li><a href="https://chat.openai.com" target="_blank" rel="noreferrer">OpenAI GPT</a></li>
+                            <li><a href="https://ai.google" target="_blank" rel="noreferrer">Google AI</a></li>
+                            <li><a href="https://www.anthropic.com" target="_blank" rel="noreferrer">Anthropic</a></li>
+                            <li>Ollama for local open-source models like Llama 2, Vicuna, MPT, and gpt4all</li>
+                            <li>Meta Llama</li>
+                            <li>Mistral</li>
+                            <li>Qwen</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-            <h3>RAG Frameworks</h3>
-            <ul>
-                <li>LangChain - Popular RAG orchestration framework</li>
-                <li>LlamaIndex (formerly GPT Index) - Document indexing and retrieval</li>
-                <li>Haystack - End-to-end search framework</li>
-                <li>Azure AI Search - Enterprise retrieval service</li>
-                <li>Elasticsearch - Full-text search and analytics engine</li>
-            </ul>
-        </div>
-    </section>
+            <section id="llms" class="section detail-section">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">LLMs</span>
+                        <h2>Large Language Models</h2>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="topic-grid">
+                        <article class="topic-card">
+                            <h3>What are LLMs?</h3>
+                            <p>LLMs are models trained on large text corpora to understand and generate language based
+                                on context.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>How LLMs work</h3>
+                            <p>They predict the next token in a sequence using attention and deep transformer layers.
+                            </p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Input and output</h3>
+                            <p>Prompts become model input, and the model returns generated text, summaries, or code.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Applications</h3>
+                            <p>LLMs power chatbots, assistants, code generation, content creation, and semantic search.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="box">
+                        <h3>LLM Examples</h3>
+                        <ul>
+                            <li>OpenAI GPT for conversational AI</li>
+                            <li>Google Gemma for multimodal tasks</li>
+                            <li>Anthropic Claude for safety-focused interactions</li>
+                            <li>Ollama for local LLM deployment</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-    <!-- MultiAgent Section -->
-    <section>
-        <h2>👥 MultiAgent - Agentic AI Agents</h2>
-        <div class="section-content">
-            <ol>
-                <li><b>CrewAI</b> - Framework for orchestrating cooperative AI agents</li>
-                <li><b>Google ADK</b> - Agent development kit with advanced capabilities</li>
-                <li><b>OpenAI Swarm</b> - Lightweight multi-agent orchestration</li>
-                <li><b>LangChain/LangGraph</b> - Graph-based agent workflows</li>
-                <li><b>AutoGen</b> - Framework for multi-agent conversation</li>
-                <li><b>Microsoft Agent Framework</b> - Enterprise-grade agent development</li>
-            </ol>
-        </div>
-    </section>
+            <section id="rag" class="section detail-section">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">RAG</span>
+                        <h2>Retrieval-Augmented Generation</h2>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="two-column">
+                        <div class="box">
+                            <h3>What is RAG?</h3>
+                            <p>RAG enriches generation with retrieved context from documents or knowledge stores.</p>
+                        </div>
+                        <div class="box">
+                            <h3>Why use RAG?</h3>
+                            <p>It reduces hallucinations and improves relevance for factual, up-to-date answers.</p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h3>RAG Workflow</h3>
+                        <ul>
+                            <li>Collect source documents</li>
+                            <li>Embed content into vectors</li>
+                            <li>Search with a query</li>
+                            <li>Return context to the model</li>
+                            <li>Generate a grounded response</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>RAG Example</h3>
+                        <p>Use retrieved documents with a prompt to generate an accurate answer.</p>
+                        <div class="code-panel">
+                            <pre><code>query = "How do I set up MFA for my account?"
+docs = vector_store.similarity_search(query, k=3)
+context = "\n\n".join([doc.page_content for doc in docs])
+prompt = f"Use the information below to answer the question:\n\n{context}\n\nQuestion: {query}"
+response = llm.generate(prompt)</code></pre>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h3>RAG vs Fine-Tune Comparison</h3>
+                        <table class="term-table">
+                            <tr>
+                                <th>Aspect</th>
+                                <th>RAG (Retrieval-Augmented Generation)</th>
+                                <th>Fine-Tuning</th>
+                            </tr>
+                            <tr>
+                                <td><strong>How it works</strong></td>
+                                <td>Retrieves external documents at runtime and passes them as context to the model.
+                                </td>
+                                <td>Modifies model weights offline using labeled training data.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Model changes</strong></td>
+                                <td>Model stays unchanged; only context is added.</td>
+                                <td>Model weights and parameters are permanently updated.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Update frequency</strong></td>
+                                <td>Can add new documents anytime without retraining.</td>
+                                <td>Requires retraining to incorporate new knowledge.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cost</strong></td>
+                                <td>Lower cost (vector storage + retrieval).</td>
+                                <td>Higher cost (compute, GPU time, data labeling).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Latency</strong></td>
+                                <td>Slightly higher (retrieval + generation).</td>
+                                <td>Lower (only generation phase).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data needed</strong></td>
+                                <td>Documents, no labeling required.</td>
+                                <td>Labeled input/output pairs.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Best for</strong></td>
+                                <td>Up-to-date knowledge, large document sets, Q&A systems.</td>
+                                <td>Task-specific style, consistent behavior, specialized domains.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hallucination risk</strong></td>
+                                <td>Lower (grounds answers in retrieved docs).</td>
+                                <td>Higher (model may generate plausible but false outputs).</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="box">
+                        <h3>When to Use RAG</h3>
+                        <ul>
+                            <li>You have a large knowledge base that changes frequently.</li>
+                            <li>You need factual accuracy and want to reduce hallucinations.</li>
+                            <li>You want minimal computational overhead and faster deployment.</li>
+                            <li>Your documents are already available (no labeling needed).</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>When to Use Fine-Tuning</h3>
+                        <ul>
+                            <li>You need a specialized model for a specific task or domain.</li>
+                            <li>You have labeled training data and consistent patterns.</li>
+                            <li>You need lower latency or offline inference.</li>
+                            <li>You want the model to learn a particular response style or format.</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>How to Fine-Tune</h3>
+                        <p>Fine-tuning adapts an existing model using labeled examples or a domain-specific dataset.</p>
+                        <ul>
+                            <li><strong>Step 1:</strong> Choose a base model that matches your task, such as a text
+                                generation or classification model.</li>
+                            <li><strong>Step 2:</strong> Collect and format training data with input/output pairs, e.g.
+                                CSV/JSON lines or a dataset object.</li>
+                            <li><strong>Step 3:</strong> Tokenize your data with the model tokenizer and prepare
+                                training/validation splits.</li>
+                            <li><strong>Step 4:</strong> Configure training arguments like batch size, learning rate,
+                                epochs, and evaluation strategy.</li>
+                            <li><strong>Step 5:</strong> Train the model using a Trainer or fine-tuning API, then
+                                validate on held-out examples.</li>
+                            <li><strong>Step 6:</strong> Save the fine-tuned model, upload to Hugging Face Hub, or
+                                deploy in a demo space.</li>
+                        </ul>
+                        <div class="code-panel">
+                            <pre><code>from datasets import load_dataset
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, TrainingArguments, Trainer
 
-    <!-- AI Workflows Section -->
-    <section>
-        <h2>⚙️ AI WORKFLOWS - Orchestration Frameworks</h2>
-        <div class="section-content">
-            <p><b>Orchestration Frameworks for Complex AI Tasks and Pipelines</b></p>
-            <ol>
-                <li><b>Apache Airflow</b> - Workflow automation and scheduling</li>
-                <li><b>Prefect</b> - Modern workflow orchestration platform</li>
-                <li><b>Temporal</b> - Durable workflow engine for microservices</li>
-                <li><b>LangChain Workflow</b> - Chain management and orchestration</li>
-                <li><b>Azure Logic Apps</b> - Cloud-based workflow automation</li>
-                <li><b>AWS Step Functions</b> - Serverless workflow orchestration</li>
-                <li><b>Dagster</b> - Data orchestration and ML workflow management</li>
-                <li><b>n8n</b> - Low-code workflow automation</li>
-                <li><b>Make (Integromat)</b> - Visual workflow builder</li>
-                <li><b>Kestra</b> - Event-driven workflow engine</li>
-            </ol>
-        </div>
-    </section>
+model_name = "google/flan-t5-base"
+dataset = load_dataset("csv", data_files={"train": "data/train.csv", "validation": "data/valid.csv"})
 
-    <!-- Model Context Protocol Section -->
-    <section>
-        <h2>🔗 Model Context Protocol (MCP) - Overview</h2>
-        <div class="section-content">
-            <p><b>MCP is a standardized protocol that enables AI models and clients to communicate with external tools
-                    and services in a consistent, safe manner.</b></p>
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
-            <h3>What is MCP?</h3>
-            <ul>
-                <li>An open protocol for connecting AI models to external data sources and tools</li>
-                <li>Enables standardized communication between clients and servers</li>
-                <li>Provides a secure and controlled interface for tool access</li>
-                <li>Simplifies integration of custom business logic with AI systems</li>
-                <li>Promotes code reusability and interoperability</li>
-            </ul>
+def preprocess(example):
+    inputs = tokenizer(example["input_text"], truncation=True, padding="max_length", max_length=256)
+    targets = tokenizer(example["target_text"], truncation=True, padding="max_length", max_length=128)
+    inputs["labels"] = targets["input_ids"]
+    return inputs
 
-            <h3>Model Context Protocol Examples</h3>
-            <div class="card-grid">
-                <div class="card">
-                    <h4>📄 Document Processing</h4>
-                    <p>MCP server for reading, parsing, and extracting information from PDFs, Word documents, and text
-                        files</p>
-                </div>
-                <div class="card">
-                    <h4>🗄️ Database Query Interface</h4>
-                    <p>MCP protocol for querying SQL databases with natural language and returning structured data</p>
-                </div>
-                <div class="card">
-                    <h4>📁 File System Operations</h4>
-                    <p>Safe sandboxed file system access through MCP for reading and writing files</p>
-                </div>
-                <div class="card">
-                    <h4>🔌 API Gateway</h4>
-                    <p>MCP server that abstracts multiple REST APIs into a unified interface</p>
-                </div>
-                <div class="card">
-                    <h4>🌐 Web Scraping</h4>
-                    <p>MCP implementation for controlled web content retrieval and parsing</p>
-                </div>
-                <div class="card">
-                    <h4>💻 Git Integration</h4>
-                    <p>MCP protocol for repository operations, commits, and code analysis</p>
-                </div>
-                <div class="card">
-                    <h4>💬 Slack Integration</h4>
-                    <p>MCP server for messaging, channel management, and workspace data access</p>
-                </div>
-                <div class="card">
-                    <h4>✉️ Email Service</h4>
-                    <p>MCP interface for sending, receiving, and managing emails</p>
-                </div>
-                <div class="card">
-                    <h4>📊 Data Analysis</h4>
-                    <p>MCP protocol wrapping pandas, scikit-learn, and visualization tools</p>
-                </div>
-                <div class="card">
-                    <h4>☁️ Cloud Service Integration</h4>
-                    <p>MCP servers for AWS, Azure, or GCP resource management</p>
-                </div>
-                <div class="card">
-                    <h4>📈 Real-time Monitoring</h4>
-                    <p>MCP protocol for system metrics, logs, and alerting</p>
-                </div>
-                <div class="card">
-                    <h4>🏢 Custom Business Logic</h4>
-                    <p>Domain-specific MCP servers for internal company processes</p>
-                </div>
-            </div>
-        </div>
-    </section>
+dataset = dataset.map(preprocess, batched=True)
 
-    <!-- When to Use MCP Section -->
-    <section>
-        <h2>⏰ When to Use Model Context Protocol (MCP)</h2>
-        <div class="section-content">
-            <h3>Ideal Use Cases for MCP</h3>
-            <div class="two-column">
-                <div class="box">
-                    <h4>✅ Use MCP When:</h4>
-                    <ul>
-                        <li>You need AI to access external systems</li>
-                        <li>Building standardized tool interfaces</li>
-                        <li>Creating reusable integrations</li>
-                        <li>Enabling multiple clients to use same tools</li>
-                        <li>Enforcing security and permissions</li>
-                        <li>Building multi-agent systems</li>
-                        <li>Need protocol versioning and compatibility</li>
-                    </ul>
-                </div>
-                <div class="box">
-                    <h4>❌ Don't Use MCP When:</h4>
-                    <ul>
-                        <li>Simple direct API calls suffice</li>
-                        <li>Single-purpose integrations only</li>
-                        <li>Real-time streaming requirements</li>
-                        <li>Ultra-low latency critical</li>
-                        <li>No need for tool abstraction</li>
-                        <li>Complex binary data handling</li>
-                        <li>Extremely simple integrations</li>
-                    </ul>
-                </div>
-            </div>
+training_args = TrainingArguments(
+    output_dir="./fine-tuned-model",
+    evaluation_strategy="epoch",
+    learning_rate=2e-5,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=8,
+    num_train_epochs=3,
+    save_total_limit=2,
+    load_best_model_at_end=True,
+)
 
-            <h3>MCP Benefits</h3>
-            <ul>
-                <li><span class="highlight">Standardization</span> - Consistent protocol across all integrations</li>
-                <li><span class="highlight">Security</span> - Controlled access and permissions model</li>
-                <li><span class="highlight">Scalability</span> - Easily add new tools and capabilities</li>
-                <li><span class="highlight">Reusability</span> - Share MCP servers across projects</li>
-                <li><span class="highlight">Interoperability</span> - Works with different AI models and clients</li>
-            </ul>
-        </div>
-    </section>
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=dataset["train"],
+    eval_dataset=dataset["validation"],
+)
 
-    <!-- Built-in and Custom MCP Section -->
-    <section>
-        <h2>🛠️ Built-in MCP vs Custom MCP Servers</h2>
-        <div class="section-content">
-            <h3>Built-in MCP Servers</h3>
-            <div class="card-grid">
-                <div class="card">
-                    <h4>📝 Markdown Server</h4>
-                    <p>Parse and handle markdown documents</p>
+trainer.train()
+trainer.save_model("./fine-tuned-model")</code></pre>
+                        </div>
+                        <p>Use Hugging Face datasets and `transformers` with a model such as
+                            <em>google/flan-t5-base</em>, <em>facebook/opt-1.3b</em>, or open-source Llama 2 variants.
+                        </p>
+                    </div>
+                    <div class="box">
+                        <h3>Hugging Face Models, Datasets, and Spaces</h3>
+                        <ul>
+                            <li>Browse open-source models on Hugging Face, including Llama 2, Mistral, and Flan-T5.</li>
+                            <li>Use `datasets.load_dataset` for CSV, JSON, text, or custom training data.</li>
+                            <li>Publish fine-tuned models to the Hugging Face Hub.</li>
+                            <li>Deploy demos and interactive apps in Hugging Face Spaces.</li>
+                        </ul>
+                    </div>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h4>Use Cases</h4>
+                            <p>Knowledge bases, customer support, policy search, and legal document QA.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Tools</h4>
+                            <p>Pinecone, Weaviate, Milvus, Chroma, Ollama, and vector search libraries.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card">
-                    <h4>🔍 Search Server</h4>
-                    <p>Basic search functionality across documents</p>
-                </div>
-                <div class="card">
-                    <h4>📊 Analytics Server</h4>
-                    <p>Built-in analytics and metrics</p>
-                </div>
-                <div class="card">
-                    <h4>🔐 Auth Server</h4>
-                    <p>Authentication and authorization utilities</p>
-                </div>
-                <div class="card">
-                    <h4>📂 File Manager</h4>
-                    <p>Basic file operations</p>
-                </div>
-                <div class="card">
-                    <h4>🌐 HTTP Client</h4>
-                    <p>Make HTTP requests to external APIs</p>
-                </div>
-            </div>
+            </section>
 
-            <h3>Custom MCP Server Development</h3>
-            <div class="two-column">
-                <div class="box">
-                    <h4>MCP Server Components</h4>
-                    <ul>
-                        <li><b>Tool Definitions:</b> Define available tools and parameters</li>
-                        <li><b>Request Handlers:</b> Implement business logic</li>
-                        <li><b>Response Formatting:</b> Structure responses correctly</li>
-                        <li><b>Error Handling:</b> Proper exception management</li>
-                        <li><b>Authentication:</b> Security validation</li>
-                        <li><b>Logging:</b> Debug and monitoring capabilities</li>
-                    </ul>
+            <section id="prompt-engineering" class="section prompt-engineering">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">Prompt Engineering</span>
+                        <h2>Prompt Engineering Guide</h2>
+                    </div>
                 </div>
-                <div class="box">
-                    <h4>Implementation Steps</h4>
-                    <ul>
-                        <li>Define tool interface and schema</li>
-                        <li>Implement tool handlers</li>
-                        <li>Add request/response validation</li>
-                        <li>Implement error handling</li>
-                        <li>Add logging and monitoring</li>
-                        <li>Write unit tests</li>
-                        <li>Document tools and parameters</li>
-                    </ul>
+                <div class="section-content">
+                    <div class="box">
+                        <h3>What Is a Prompt?</h3>
+                        <p>A <strong>prompt</strong> is the input you give to an AI model.</p>
+                    </div>
+                    <div class="box">
+                        <h3>Why Prompt Engineering Matters</h3>
+                        <p>LLMs generate outputs based on the instructions they receive.</p>
+                        <p>Think of prompting like giving directions:</p>
+                        <ul>
+                            <li>Vague directions → unclear result</li>
+                            <li>Clear directions → better result</li>
+                        </ul>
+                        <div class="code-panel">
+                            <pre><code>Prompt:
+Write an essay.</code></pre>
+                        </div>
+                        <p>Result:</p>
+                        <ul>
+                            <li>Unclear topic</li>
+                            <li>Unclear length</li>
+                        </ul>
+                        <div class="code-panel">
+                            <pre><code>Write a 300-word essay about climate change for high school students.</code></pre>
+                        </div>
+                        <p>Result:</p>
+                        <ul>
+                            <li>Specific topic</li>
+                            <li>Specific audience</li>
+                            <li>Specific length</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>3. Anatomy of a Good Prompt</h3>
+                        <p>A strong prompt often contains:</p>
+                        <h4>1. Role</h4>
+                        <div class="code-panel">
+                            <pre><code>You are an experienced AI teacher.</code></pre>
+                        </div>
+                        <h4>2. Task</h4>
+                        <div class="code-panel">
+                            <pre><code>Explain neural networks.</code></pre>
+                        </div>
+                        <h4>3. Context</h4>
+                        <div class="code-panel">
+                            <pre><code>The audience is beginners who know basic Python.</code></pre>
+                        </div>
+                        <h4>4. Format</h4>
+                        <div class="code-panel">
+                            <pre><code>Use bullet points and examples.</code></pre>
+                        </div>
+                        <p><strong>Formula:</strong></p>
+                        <div class="code-panel">
+                            <pre><code>Role + Task + Context + Format</code></pre>
+                        </div>
+                        <div class="code-panel">
+                            <pre><code>You are an AI teacher.
+
+Explain neural networks to beginners.
+
+Assume they know basic mathematics.
+
+Use simple language and examples.</code></pre>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h3>4. Zero-Shot Prompting</h3>
+                        <p>The model receives instructions without examples.</p>
+                        <div class="code-panel">
+                            <pre><code>Translate this sentence into Spanish:
+I love learning AI.</code></pre>
+                        </div>
+                        <p>This is called: <strong>Zero-shot Learning</strong>.</p>
+                    </div>
+                    <div class="box">
+                        <h3>5. One-Shot Prompting</h3>
+                        <p>You provide one example.</p>
+                        <div class="code-panel">
+                            <pre><code>Input: Dog
+Output: Animal
+
+Input: Rose
+Output:</code></pre>
+                        </div>
+                        <p>The model learns the pattern from the example.</p>
+                    </div>
+                    <div class="box">
+                        <h3>6. Few-Shot Prompting</h3>
+                        <p>You provide several examples.</p>
+                        <div class="code-panel">
+                            <pre><code>Input: Dog
+Output: Animal
+
+Input: Rose
+Output: Plant
+
+Input: Eagle
+Output:</code></pre>
+                        </div>
+                        <p>This technique often improves reliability.</p>
+                    </div>
+                    <div class="box">
+                        <h3>7. Chain-of-Thought Prompting</h3>
+                        <div class="code-panel">
+                            <pre><code>Solve this math problem step by step.</code></pre>
+                        </div>
+                        <p>This often improves reasoning quality and is useful for learning.</p>
+                    </div>
+                    <div class="box">
+                        <h3>8. Structured Prompting</h3>
+                        <div class="code-panel">
+                            <pre><code>Explain machine learning using:
+
+1. Definition
+2. Example
+3. Advantages
+4. Disadvantages</code></pre>
+                        </div>
+                        <p>The output becomes easier to read.</p>
+                    </div>
+                    <div class="box">
+                        <h3>9. Constraint-Based Prompting</h3>
+                        <div class="code-panel">
+                            <pre><code>Explain AI in fewer than 100 words.</code></pre>
+                        </div>
+                        <div class="code-panel">
+                            <pre><code>Use language suitable for a 12-year-old.</code></pre>
+                        </div>
+                        <p>Constraints help control outputs.</p>
+                    </div>
+                    <div class="box">
+                        <h3>10. Prompt Chaining</h3>
+                        <p>Break a large task into smaller prompts.</p>
+                        <div class="code-panel">
+                            <pre><code>Step 1:
+Generate startup ideas.
+
+Step 2:
+Select the best idea.
+
+Step 3:
+Create a business plan.</code></pre>
+                        </div>
+                        <p>This is commonly used in AI workflows and agents.</p>
+                    </div>
+                    <div class="box">
+                        <h3>11. Prompting for Coding</h3>
+                        <div class="code-panel">
+                            <pre><code>Write a Python function that finds the largest number in a list.
+
+Requirements:
+- Use type hints
+- Add comments
+- Include an example</code></pre>
+                        </div>
+                        <p>Specific prompts generally produce better code.</p>
+                    </div>
+                    <div class="box">
+                        <h3>12. Prompting for Agentic AI</h3>
+                        <div class="code-panel">
+                            <pre><code>Goal:
+Plan a 3-day trip to Hyderabad.
+
+Constraints:
+Budget under ₹15,000.
+
+Output:
+Daily itinerary and estimated costs.</code></pre>
+                        </div>
+                        <p>The agent can then plan, search, use tools, and refine results.</p>
+                    </div>
+                    <div class="box">
+                        <h3>13. Common Prompting Mistakes</h3>
+                        <h4>Too Vague</h4>
+                        <div class="code-panel">
+                            <pre><code>Teach AI.</code></pre>
+                        </div>
+                        <div class="code-panel">
+                            <pre><code>Teach the basics of machine learning to a beginner.</code></pre>
+                        </div>
+                        <h4>Missing Context</h4>
+                        <div class="code-panel">
+                            <pre><code>Explain transformers.</code></pre>
+                        </div>
+                        <div class="code-panel">
+                            <pre><code>Explain transformers to a student learning Generative AI for the first time.</code></pre>
+                        </div>
+                        <h4>Missing Output Format</h4>
+                        <div class="code-panel">
+                            <pre><code>Summarize this article.</code></pre>
+                        </div>
+                        <div class="code-panel">
+                            <pre><code>Summarize this article in 5 bullet points.</code></pre>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h3>14. A Professional Prompt Template</h3>
+                        <div class="code-panel">
+                            <pre><code>Role:
+You are an expert AI instructor.
+
+Task:
+Teach prompt engineering.
+
+Audience:
+Beginners learning Generative AI.
+
+Requirements:
+- Use simple language
+- Give examples
+- Include a quiz
+
+Output Format:
+Markdown</code></pre>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h3>Key Terms</h3>
+                        <table class="term-table">
+                            <tr>
+                                <th>Term</th>
+                                <th>Meaning</th>
+                            </tr>
+                            <tr>
+                                <td>Prompt</td>
+                                <td>Input given to an AI model</td>
+                            </tr>
+                            <tr>
+                                <td>Prompt Engineering</td>
+                                <td>Designing effective prompts</td>
+                            </tr>
+                            <tr>
+                                <td>Zero-Shot</td>
+                                <td>No examples provided</td>
+                            </tr>
+                            <tr>
+                                <td>One-Shot</td>
+                                <td>One example provided</td>
+                            </tr>
+                            <tr>
+                                <td>Few-Shot</td>
+                                <td>Multiple examples provided</td>
+                            </tr>
+                            <tr>
+                                <td>Chain-of-Thought</td>
+                                <td>Step-by-step reasoning</td>
+                            </tr>
+                            <tr>
+                                <td>Constraints</td>
+                                <td>Rules placed on outputs</td>
+                            </tr>
+                            <tr>
+                                <td>Prompt Chaining</td>
+                                <td>Breaking tasks into stages</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <h3>MCP Client Implementation</h3>
-            <ul>
-                <li><b>Tool Discovery:</b> Query available tools from server</li>
-                <li><b>Tool Invocation:</b> Call server tools with parameters</li>
-                <li><b>Error Handling:</b> Handle server errors gracefully</li>
-                <li><b>Response Processing:</b> Parse and use returned data</li>
-                <li><b>Connection Management:</b> Maintain server connection</li>
-                <li><b>Retry Logic:</b> Handle transient failures</li>
-            </ul>
-
-            <h3>Popular MCP Client Libraries</h3>
-            <ul>
-                <li><b>anthropic-sdk</b> - Official Anthropic Python SDK with MCP support</li>
-                <li><b>openai-sdk</b> - OpenAI library with MCP integration</li>
-                <li><b>langchain</b> - LangChain agents can use MCP servers</li>
-                <li><b>mcp-client-python</b> - Pure Python MCP client implementation</li>
-                <li><b>mcp-client-js</b> - JavaScript/Node.js MCP client</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Testing MCP Section -->
-    <section>
-        <h2>🧪 How to Test MCP (Model Context Protocol)</h2>
-        <div class="section-content">
-            <h3>MCP Testing Strategies</h3>
-
-            <div class="level">
-                <b>1. Unit Testing</b>
-                <ul>
-                    <li>Test individual tool handlers in isolation</li>
-                    <li>Mock external dependencies (databases, APIs)</li>
-                    <li>Verify input validation and error handling</li>
-                    <li>Test edge cases and boundary conditions</li>
-                    <li>Use frameworks: pytest, unittest, mocha</li>
-                </ul>
-            </div>
-
-            <div class="level">
-                <b>2. Integration Testing</b>
-                <ul>
-                    <li>Test MCP server with real external services</li>
-                    <li>Verify protocol compliance</li>
-                    <li>Test with multiple concurrent clients</li>
-                    <li>Test authentication and authorization flows</li>
-                    <li>Verify response formats and error codes</li>
-                </ul>
-            </div>
-
-            <div class="level">
-                <b>3. Protocol Compliance Testing</b>
-                <ul>
-                    <li>Validate against MCP specification</li>
-                    <li>Test schema validation</li>
-                    <li>Verify request/response formats</li>
-                    <li>Test version compatibility</li>
-                    <li>Use MCP specification validator tools</li>
-                </ul>
-            </div>
-
-            <div class="level">
-                <b>4. End-to-End Testing</b>
-                <ul>
-                    <li>Test full client-server interactions</li>
-                    <li>Test with real AI models</li>
-                    <li>Simulate actual use cases</li>
-                    <li>Performance and load testing</li>
-                    <li>Monitor resource usage</li>
-                </ul>
-            </div>
-
-            <h3>Testing Tools and Frameworks</h3>
-            <div class="card-grid">
-                <div class="card">
-                    <h4>🧪 pytest</h4>
-                    <p>Python testing framework for unit and integration tests</p>
+            <section id="workflows" class="section workflows">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">AI Workflows</span>
+                        <h2>AI Workflows & Orchestration</h2>
+                    </div>
                 </div>
-                <div class="card">
-                    <h4>🔧 MCP Inspector</h4>
-                    <p>Built-in tool to inspect MCP servers and debug</p>
+                <div class="section-content">
+                    <p>Design workflows that connect LLMs, tools, data, and agents into repeatable AI systems.</p>
+                    <div class="two-column">
+                        <div class="box">
+                            <h3>Core Workflow Concepts</h3>
+                            <ul>
+                                <li>Task decomposition and prompt chaining</li>
+                                <li>Data flow between model, memory, and tools</li>
+                                <li>Retry logic, validation, and error handling</li>
+                                <li>State management for long-running interactions</li>
+                            </ul>
+                        </div>
+                        <div class="box">
+                            <h3>Workflow Tools</h3>
+                            <ul>
+                                <li>LangChain workflow chains</li>
+                                <li>LangGraph visual orchestration</li>
+                                <li>CrewAI multi-agent planning</li>
+                                <li>AutoGen agent conversation flows</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h4>Data Pipeline</h4>
+                            <p>Connect ingestion, embedding, retrieval, and response generation.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Tool Integration</h4>
+                            <p>Use external APIs, search, calculators, and custom services safely.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Agent Flow</h4>
+                            <p>Define planning, execution, observation, and feedback loops.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Monitoring</h4>
+                            <p>Track performance, log decisions, and measure workflow reliability.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card">
-                    <h4>📝 Postman/Insomnia</h4>
-                    <p>API testing tools for MCP HTTP endpoints</p>
-                </div>
-                <div class="card">
-                    <h4>⚡ Jest</h4>
-                    <p>JavaScript testing framework for Node.js MCP</p>
-                </div>
-                <div class="card">
-                    <h4>🔍 Wiremock</h4>
-                    <p>Mock external HTTP services for testing</p>
-                </div>
-                <div class="card">
-                    <h4>📊 LoadTest</h4>
-                    <p>Performance and load testing tools</p>
-                </div>
-            </div>
+            </section>
 
-            <h3>Test Coverage Checklist</h3>
-            <ul>
-                <li>✅ Tool discovery and listing</li>
-                <li>✅ Valid parameter handling</li>
-                <li>✅ Invalid parameter rejection</li>
-                <li>✅ Error scenarios and messages</li>
-                <li>✅ Authentication and authorization</li>
-                <li>✅ Rate limiting and throttling</li>
-                <li>✅ Timeout handling</li>
-                <li>✅ Concurrent request handling</li>
-                <li>✅ Response format validation</li>
-                <li>✅ Resource cleanup</li>
-                <li>✅ Backward compatibility</li>
-                <li>✅ Security (injection, data exposure)</li>
-            </ul>
+            <section id="agentic-ai" class="section showcase">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">Phase 3</span>
+                        <h2>Agentic AI</h2>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Learn how AI agents plan, act, use tools, remember context, and coordinate across multiple agents
+                        with human oversight.</p>
+                    <div class="topic-grid">
+                        <article class="topic-card">
+                            <h3>What is an AI Agent?</h3>
+                            <p>Discover the difference between chatbots and autonomous agent systems.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Agent Architecture</h3>
+                            <p>Study planning, memory, tool use, and execution loops.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Multi-Agent Systems</h3>
+                            <p>See how agents coordinate, delegate tasks, and solve complex problems.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Human-in-the-Loop</h3>
+                            <p>Learn how to keep humans involved for oversight, correction, and accountability.</p>
+                        </article>
+                    </div>
 
-            <h3>Example Test Case</h3>
-            <div style="background: #f0f0f0; padding: 15px; border-radius: 8px; margin-top: 15px; overflow-x: auto;">
-                <pre style="margin: 0; font-family: 'Courier New', monospace; font-size: 0.9rem;"><code>def test_mcp_server_tool_call():
-    # Setup
-    client = MCPClient("http://localhost:8000")
-    
-    # Test valid tool call
-    response = client.call_tool(
-        tool_name="database_query",
-        parameters={"query": "SELECT * FROM users"}
-    )
-    
-    # Assertions
-    assert response.status == "success"
-    assert len(response.data) > 0
-    assert "results" in response
-    
-    # Test error handling
-    with pytest.raises(MCPError):
-        client.call_tool(
-            tool_name="invalid_tool",
-            parameters={}
-        )
+                    <div class="code-panel">
+                        <pre><code>Goal
+  ↓
+Think
+  ↓
+Plan
+  ↓
+Use Tools
+  ↓
+Observe Results
+  ↓
+Improve Plan
+  ↓
+Complete Task</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section ecosystem">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">Tools & Frameworks</span>
+                        <h2>LLMs, LangChain, LangGraph, CrewAI & AutoGen</h2>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Use these tools to connect language models with workflows, external data, agents, and
+                        protocol-driven integrations.</p>
+                    <div class="card-grid">
+                        <div class="card card-hero">
+                            <h4>LangChain</h4>
+                            <p>Build chains, prompts, RAG pipelines and agent workflows with Python or JavaScript.</p>
+                        </div>
+                        <div class="card card-hero">
+                            <h4>LangGraph</h4>
+                            <p>Visualize agent workflows, state transitions and complex prompt orchestration.</p>
+                        </div>
+                        <div class="card card-hero">
+                            <h4>CrewAI</h4>
+                            <p>Create cooperative multi-agent systems with shared context and roles.</p>
+                        </div>
+                        <div class="card card-hero">
+                            <h4>AutoGen</h4>
+                            <p>Rapidly prototype multi-agent conversations and tool-based workflows.</p>
+                        </div>
+                        <div class="card card-hero">
+                            <h4>Ollama</h4>
+                            <p>Run open-source models locally, including Llama 2, Vicuna, MPT, and gpt4all.</p>
+                        </div>
+                    </div>
+                    <div class="two-column" style="margin-top: 24px;">
+                        <div class="box">
+                            <h3>LangChain Definition</h3>
+                            <p>LangChain is a framework for building LLM-powered applications by connecting prompts,
+                                chains, memory, tools, and data sources into reusable workflows.</p>
+                            <div class="code-panel">
+                                <pre><code>from langchain import OpenAI, LLMChain, PromptTemplate
+
+prompt = PromptTemplate(
+    input_variables=["topic"],
+    template="Summarize the following topic in 3 bullets:\n\n{topic}"
+)
+chain = LLMChain(
+    llm=OpenAI(model_name="gpt-4o-mini"),
+    prompt=prompt
+)
+result = chain.run(topic="LangChain for agent workflows")
+print(result)</code></pre>
+                            </div>
+                            <div class="code-panel">
+                                <pre><code>from langchain import OpenAI
+from langchain.agents import Tool, initialize_agent
+
+# Example weather tool for LangChain
+
+def get_weather(city: str) -> str:
+    # In a real app, call a weather API like OpenWeather or WeatherAPI here.
+    return f"Current weather in {city}: clear skies, 24°C."
+
+weather_tool = Tool.from_function(
+    func=get_weather,
+    name="WeatherAPI",
+    description="Get the current weather for a city."
+)
+
+agent = initialize_agent(
+    tools=[weather_tool],
+    llm=OpenAI(model_name="gpt-4o-mini"),
+    agent="zero-shot-react-description",
+    verbose=True
+)
+
+response = agent.run("What is the weather in Hyderabad today?")
+print(response)</code></pre>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <h3>LangGraph Definition</h3>
+                            <p>LangGraph is a visual workflow tool for mapping model calls, tool integrations, and agent
+                                logic as graph nodes and edges.</p>
+                            <ul>
+                                <li>Design model workflows visually.</li>
+                                <li>Trace decision paths and tool usage.</li>
+                                <li>Export graphs into runnable agent pipelines.</li>
+                            </ul>
+                            <div class="code-panel">
+                                <pre><code># Conceptual LangGraph example pseudocode
+# Node A: user query
+# Node B: retrieve docs
+# Node C: generate answer
+# Connect nodes in a graph and run.
 </code></pre>
-            </div>
-        </div>
-    </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box" style="margin-top: 24px;">
+                        <h3>Advanced frameworks and tools</h3>
+                        <ul>
+                            <li>Vector search: Pinecone, Weaviate, Milvus, Chroma, RedisVector.</li>
+                            <li>Open-source model runtime: Ollama, Hugging Face, Replicate.</li>
+                            <li>Agent orchestration: CrewAI, AutoGen, LangServe, LlamaIndex.</li>
+                            <li>Weather API integration: connect external APIs with LangChain tools.</li>
+                            <li>Monitoring and logs: LangGraph inspection, model tracing, and tool audit logs.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-    <!-- Development Tools Section -->
-    <section>
-        <h2>🛠️ Development Tools</h2>
-        <div class="section-content">
-            <div class="card-grid">
-                <div class="card">
-                    <h4>💻 VS Code</h4>
-                    <p>Primary code editor with excellent AI/ML extensions</p>
+            <section class="section roadmap">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">Practical Skills</span>
+                        <h2>Skills Roadmap</h2>
+                    </div>
                 </div>
-                <div class="card">
-                    <h4>🌊 Windsurf</h4>
-                    <p>AI-powered development environment</p>
+                <div class="section-content">
+                    <div class="three-column">
+                        <div class="box skill-box">
+                            <h3>Beginner</h3>
+                            <ul>
+                                <li>Python basics and syntax</li>
+                                <li>Variables, loops, functions, and data structures</li>
+                                <li>APIs, HTTP calls, and JSON handling</li>
+                                <li>Basic data workflows with pandas or similar tools</li>
+                                <li>Build simple prompt apps and chat examples</li>
+                            </ul>
+                        </div>
+                        <div class="box skill-box">
+                            <h3>Intermediate</h3>
+                            <ul>
+                                <li>Machine learning with Python and model evaluation</li>
+                                <li>Data processing, visualization, and feature extraction</li>
+                                <li>Prompt engineering, instruction tuning, and LLM APIs</li>
+                                <li>RAG, embeddings, and semantic search systems</li>
+                                <li>Start using LangChain workflows and Ollama models</li>
+                            </ul>
+                        </div>
+                        <div class="box skill-box">
+                            <h3>Advanced</h3>
+                            <ul>
+                                <li>RAG systems, embeddings management, and indexing</li>
+                                <li>AI agents, tool use, and multi-step workflows</li>
+                                <li>Multi-agent orchestration and role-based systems</li>
+                                <li>Evaluation, safety, bias mitigation, and production readiness</li>
+                                <li>Deploy models, monitor behavior, and handle runtime errors</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box" style="margin-top: 24px;">
+                        <h3>Learning Steps</h3>
+                        <ul>
+                            <li>Step 1: Learn Python, data structures, and basic programming concepts.</li>
+                            <li>Step 2: Practice API requests, data parsing, and prompt design.</li>
+                            <li>Step 3: Build an LLM-powered app with a prompt, then add retrieval.</li>
+                            <li>Step 4: Create a RAG pipeline using documents, embeddings, and search.
+                            </li>
+                            <li>Step 5: Add tool calls and agent flow with LangChain or LangGraph.</li>
+                            <li>Step 6: Measure outputs, fix errors, and deploy a model workflow.</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="card">
-                    <h4>✨ Cursor</h4>
-                    <p>AI-first code editor built on VSCode</p>
-                </div>
-                <div class="card">
-                    <h4>🤖 GitHub Copilot</h4>
-                    <p>AI coding assistant and code generation</p>
-                </div>
-                <div class="card">
-                    <h4>🔮 Anthropic Claude</h4>
-                    <p>Advanced AI assistant for development tasks</p>
-                </div>
-                <div class="card">
-                    <h4>🎯 Google AntiGravity</h4>
-                    <p>Multi-agent orchestration platform</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <footer>
-        <p>📚 Complete AI Learning Roadmap | Updated May 2026 | Comprehensive Guide to Modern AI Development</p>
-    </footer>
+            <section class="section learn-better">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">Learn Better</span>
+                        <h2>How to Learn AI the Right Way</h2>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="two-column">
+                        <div class="box">
+                            <h3>Practice by Building</h3>
+                            <ul>
+                                <li>Start with small LLM prompts and chat apps</li>
+                                <li>Build a RAG demo with a vector database</li>
+                                <li>Create an agent that calls tools or APIs</li>
+                            </ul>
+                        </div>
+                        <div class="box">
+                            <h3>Learn with Real Examples</h3>
+                            <ul>
+                                <li>Explore LangChain and LangGraph samples</li>
+                                <li>Study CrewAI and AutoGen agent patterns</li>
+                                <li>Use GPT, Google AI, Anthropic and Ollama APIs</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="checklist">
+                        <li>Read model docs and tutorials</li>
+                        <li>Experiment with prompts and instruction styles</li>
+                        <li>Evaluate outputs for quality and safety</li>
+                        <li>Use version control for prompt and code experiments</li>
+                        <li>Join AI communities and share your work</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="mcp" class="section mcp">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">Model Context Protocol</span>
+                        <h2>MCP Overview</h2>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>MCP makes it easier to connect AI models and clients to external tools safely, reliably, and with
+                        consistent behavior.</p>
+                    <div class="two-column">
+                        <div class="box">
+                            <h3>Why MCP?</h3>
+                            <ul>
+                                <li>Standardize tool interfaces</li>
+                                <li>Enable secure external access</li>
+                                <li>Support reusable integrations</li>
+                                <li>Simplify multi-client workflows</li>
+                            </ul>
+                        </div>
+                        <div class="box">
+                            <h3>When to Use MCP</h3>
+                            <ul>
+                                <li>When AI needs external tool access</li>
+                                <li>When multiple apps use the same tool set</li>
+                                <li>When security and observability matter</li>
+                                <li>When you want a protocol-driven agent ecosystem</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h3>MCP Inspector Tool</h3>
+                        <p>The MCP Inspector helps teams review registered tools, validate request and response schemas,
+                            and trace tool call lifecycle events.</p>
+                        <ul>
+                            <li>Inspect tool manifests and supported operations.</li>
+                            <li>Validate input/output schemas before deployment.</li>
+                            <li>Replay tool calls using sample payloads.</li>
+                            <li>Debug authorization, routing, and response formats.</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>How MCP Works</h3>
+                        <p>Model Context Protocol defines how a model client discovers tools, exchanges structured tool
+                            requests, and receives tool results in a consistent format.</p>
+                        <ul>
+                            <li>Define tool capabilities with metadata, input schema, and output schema.</li>
+                            <li>Register tools with a protocol server or gateway.</li>
+                            <li>Send model-generated tool calls through the MCP connector.</li>
+                            <li>Return tool outputs as structured context for the model to continue the workflow.</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>MCP Configuration Example</h3>
+                        <p>Here is a simple tool manifest and client configuration pattern for MCP.</p>
+                        <div class="code-panel">
+                            <pre><code>{
+  "tool_name": "weather_service",
+  "description": "Fetch current weather and guidance for a city.",
+  "endpoint": "https://api.example.com/weather",
+  "auth": {
+    "type": "bearer",
+    "token_env": "WEATHER_API_KEY"
+  },
+  "inputs": {
+    "city": "string"
+  },
+  "outputs": {
+    "temperature": "number",
+    "condition": "string",
+    "advice": "string"
+  }
+}</code></pre>
+                        </div>
+                        <div class="code-panel">
+                            <pre><code># Python example using MCP client configuration
+from mcp import MCPClient
+
+client = MCPClient(
+    model="gpt-4o-mini",
+    tools=["weather_service"],
+    config={
+        "weather_service": {
+            "endpoint": "https://api.example.com/weather",
+            "auth_token": os.environ.get("WEATHER_API_KEY")
+        }
+    }
+)
+
+response = client.run("Get current weather for Seattle and tell me whether to bring an umbrella.")
+print(response)</code></pre>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h3>Key MCP Concepts</h3>
+                        <ul>
+                            <li><strong>Tool manifest</strong>: Describes the name, inputs, outputs, and auth
+                                requirements.</li>
+                            <li><strong>Protocol server</strong>: Routes tool calls and applies security rules.</li>
+                            <li><strong>Client configuration</strong>: Connects the AI model to the registered MCP
+                                tools.</li>
+                            <li><strong>Secure credentials</strong>: Use environment variables or secrets managers to
+                                store tokens.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Updated June 2026 • AI foundations, GenAI, Agentic AI, LangChain, CrewAI, AutoGen, and MCP learning
+                roadmap.</p>
+        </footer>
+    </div>
 </body>
+
+</html>
