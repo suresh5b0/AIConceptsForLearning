@@ -21,6 +21,7 @@
                     Agents, Agentic AI
                     LangChain, LangGraph, CrewAI, AutoGen and MCP.</p>
                 <div class="hero-tags">
+                    <a class="hero-tag" href="#ai-roadmap">AI Roadmap</a>
                     <a class="hero-tag" href="#prompt-engineering">Prompt Engineering</a>
                     <a class="hero-tag" href="#llms">Large Language Models (LLMs)</a>
                     <a class="hero-tag" href="#genai">Generative AI (GenAI)</a>
@@ -58,12 +59,15 @@
         </header>
 
         <nav class="top-nav">
+            <a href="#ai-roadmap">AI Roadmap</a>
             <a href="#ai-foundations">Foundations</a>
-            <a href="#llms">Large Language Models (LLMs)</a>
-            <a href="#genai">Generative AI (GenAI)</a>
+            <a href="#llms">Large Language Models</a>
+            <a href="#genai">Generative AI</a>
             <a href="#prompt-engineering">Prompt Engineering</a>
             <a href="#workflows">AI Workflows</a>
             <a href="#rag">RAG</a>
+            <a href="#langchain">LangChain</a>
+            <a href="#langgraph">LangGraph</a>
             <a href="#agentic-ai">Agentic AI</a>
             <a href="#mcp">MCP</a>
         </nav>
@@ -100,6 +104,49 @@
                             <h3>Deep Learning</h3>
                             <p>See how deep networks and transformers unlock modern AI capabilities.</p>
                         </article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ai-roadmap" class="section roadmap">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">Roadmap</span>
+                        <h2>AI Roadmap & Skills</h2>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>Follow a practical learning path that moves from AI fundamentals to production-ready agent
+                        systems.</p>
+                    <div class="two-column">
+                        <div class="box">
+                            <h3>Roadmap Phases</h3>
+                            <ul>
+                                <li>Phase 1: AI foundations, machine learning, neural nets, and model concepts</li>
+                                <li>Phase 2: Generative AI, LLMs, prompt design, RAG, and fine-tuning</li>
+                                <li>Phase 3: Agentic AI, workflows, tool integration, and deployment</li>
+                            </ul>
+                        </div>
+                        <div class="box">
+                            <h3>Core AI Skills</h3>
+                            <ul>
+                                <li>Prompt engineering and prompt chaining</li>
+                                <li>Data preparation, embeddings, semantic search, and RAG</li>
+                                <li>Model selection, evaluation, safety, and bias awareness</li>
+                                <li>API design, FastAPI, FastMCP, and real-time endpoints</li>
+                                <li>Agent planning, memory, tool use, human-in-loop, and multi-agent systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h3>Learning Checklist</h3>
+                        <ul>
+                            <li>Understand AI concepts and practical limitations</li>
+                            <li>Practice prompts for text, coding, and reasoning tasks</li>
+                            <li>Build retrieval pipelines with embeddings and document search</li>
+                            <li>Experiment with real-time API endpoints and agent workflows</li>
+                            <li>Deploy a simple app using FastAPI or MCP endpoints</li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -255,6 +302,42 @@ context = "\n\n".join([doc.page_content for doc in docs])
 prompt = f"Use the information below to answer the question:\n\n{context}\n\nQuestion: {query}"
 response = llm.generate(prompt)</code></pre>
                         </div>
+                    </div>
+                    <div class="box">
+                        <h3>Realtime RAG</h3>
+                        <p>Realtime RAG updates retrieval results as new documents arrive and can stream answers while
+                            keeping them grounded.</p>
+                        <ul>
+                            <li>Use live ingestion for current documents and logs.</li>
+                            <li>Refresh embeddings automatically on data changes.</li>
+                            <li>Stream partial answers to users while retrieval continues.</li>
+                        </ul>
+                        <div class="code-panel">
+                            <pre><code>from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class QueryRequest(BaseModel):
+    query: str
+
+@app.post("/query")
+def query_knowledge(body: QueryRequest):
+    docs = vector_store.search(body.query, top_k=4)
+    context = "\n\n".join([doc.text for doc in docs])
+    prompt = f"Use the facts below to answer the question:\n\n{context}\n\nQuestion: {body.query}"
+    answer = llm.generate(prompt)
+    return {"answer": answer}
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h3>Realtime RAG Use Cases</h3>
+                        <ul>
+                            <li>Live customer support with current documentation and product updates.</li>
+                            <li>Operational monitoring that answers questions from logs, alerts, and dashboards.</li>
+                            <li>Sales assistants that fetch the latest pricing, inventory, and policy details.</li>
+                        </ul>
                     </div>
                     <div class="box">
                         <h3>RAG vs Fine-Tune Comparison</h3>
@@ -698,6 +781,7 @@ Markdown</code></pre>
                             <ul>
                                 <li>LangChain workflow chains</li>
                                 <li>LangGraph visual orchestration</li>
+                                <li>FastAPI + FastMCP backend APIs</li>
                                 <li>CrewAI multi-agent planning</li>
                                 <li>AutoGen agent conversation flows</li>
                             </ul>
@@ -748,6 +832,11 @@ Markdown</code></pre>
                             <p>See how agents coordinate, delegate tasks, and solve complex problems.</p>
                         </article>
                         <article class="topic-card">
+                            <h3>Hugging Face Agents</h3>
+                            <p>Explore agent workflows with Hugging Face Transformers, datasets, and model deployment.
+                            </p>
+                        </article>
+                        <article class="topic-card">
                             <h3>Human-in-the-Loop</h3>
                             <p>Learn how to keep humans involved for oversight, correction, and accountability.</p>
                         </article>
@@ -768,267 +857,730 @@ Improve Plan
   ↓
 Complete Task</code></pre>
                     </div>
+                    <div class="box">
+                        <h3>Quick Learner Tips</h3>
+                        <ul>
+                            <li>Start with a clear goal, then decide which tools the agent needs.</li>
+                            <li>Use memory for context and avoid repeating the same state manually.</li>
+                            <li>Keep agent actions simple and test each step before chaining them.</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>Agentic AI Examples</h3>
+                        <ul>
+                            <li>Research assistant that reads documents, queries APIs, and summarizes findings with tool
+                                calls.</li>
+                            <li>Customer support agent that uses CRM, knowledge search, and escalation rules.</li>
+                            <li>Developer helper that inspects repositories, runs tests, and proposes fixes.</li>
+                            <li>Operations assistant that monitors systems, diagnoses issues, and creates incident
+                                reports.</li>
+                            <li>Hugging Face-powered agent using Transformers, `datasets`, and `spaces` for data-driven
+                                workflows.</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>AI Concepts & Use Cases</h3>
+                        <ul>
+                            <li>Action planning: break tasks into smaller steps and choose tools intelligently.</li>
+                            <li>Memory: remember user preferences, past decisions, and prior results across sessions.
+                            </li>
+                            <li>Tool integration: combine search, calculators, code execution, and API access.</li>
+                            <li>Multi-agent coordination: delegate subtasks to specialized agents and merge outcomes.
+                            </li>
+                            <li>Use cases: intelligent automation, knowledge retrieval, content generation, code
+                                assistants, and business process orchestration.</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
-            <section class="section ecosystem">
+            <section id="fastapi-mcp" class="section detail-section">
                 <div class="section-header">
                     <div>
-                        <span class="section-label">Tools & Frameworks</span>
-                        <h2>LLMs, LangChain, LangGraph, CrewAI & AutoGen</h2>
+                        <span class="section-label">Tutorials</span>
+                        <h2>FastMCP & FastAPI Tutorials</h2>
                     </div>
                 </div>
                 <div class="section-content">
-                    <p>Use these tools to connect language models with workflows, external data, agents, and
-                        protocol-driven integrations.</p>
-                    <div class="card-grid">
-                        <div class="card card-hero">
-                            <h4>LangChain</h4>
-                            <p>Build chains, prompts, RAG pipelines and agent workflows with Python or JavaScript.</p>
-                        </div>
-                        <div class="card card-hero">
-                            <h4>LangGraph</h4>
-                            <p>Visualize agent workflows, state transitions and complex prompt orchestration.</p>
-                        </div>
-                        <div class="card card-hero">
-                            <h4>CrewAI</h4>
-                            <p>Create cooperative multi-agent systems with shared context and roles.</p>
-                        </div>
-                        <div class="card card-hero">
-                            <h4>AutoGen</h4>
-                            <p>Rapidly prototype multi-agent conversations and tool-based workflows.</p>
-                        </div>
-                        <div class="card card-hero">
-                            <h4>Ollama</h4>
-                            <p>Run open-source models locally, including Llama 2, Vicuna, MPT, and gpt4all.</p>
-                        </div>
-                    </div>
-                    <div class="two-column" style="margin-top: 24px;">
+                    <div class="two-column">
                         <div class="box">
-                            <h3>LangChain Definition</h3>
-                            <p>LangChain is a framework for building LLM-powered applications by connecting prompts,
-                                chains, memory, tools, and data sources into reusable workflows.</p>
+                            <h3>FastMCP Quick Start</h3>
+                            <p>FastMCP lets you expose AI tools and context-aware model behavior through a lightweight
+                                API interface.</p>
                             <div class="code-panel">
-                                <pre><code>from langchain import OpenAI, LLMChain, PromptTemplate
+                                <pre><code>from fastmcp import FastMCP, Tool
+from fastapi import FastAPI
 
-prompt = PromptTemplate(
-    input_variables=["topic"],
-    template="Summarize the following topic in 3 bullets:\n\n{topic}"
-)
-chain = LLMChain(
-    llm=OpenAI(model_name="gpt-4o-mini"),
-    prompt=prompt
-)
-result = chain.run(topic="LangChain for agent workflows")
-print(result)</code></pre>
-                            </div>
-                            <div class="code-panel">
-                                <pre><code>from langchain import OpenAI
-from langchain.agents import Tool, initialize_agent
+app = FastAPI()
+mcp = FastMCP()
 
-# Example weather tool for LangChain
+@mcp.tool
+def search_docs(query: str) -> str:
+    return "Results for: " + query
 
-def get_weather(city: str) -> str:
-    # In a real app, call a weather API like OpenWeather or WeatherAPI here.
-    return f"Current weather in {city}: clear skies, 24°C."
+@app.post("/mcp")
+def handle_mcp(request: dict):
+    return mcp.dispatch(request)
 
-weather_tool = Tool.from_function(
-    func=get_weather,
-    name="WeatherAPI",
-    description="Get the current weather for a city."
-)
-
-agent = initialize_agent(
-    tools=[weather_tool],
-    llm=OpenAI(model_name="gpt-4o-mini"),
-    agent="zero-shot-react-description",
-    verbose=True
-)
-
-response = agent.run("What is the weather in Hyderabad today?")
-print(response)</code></pre>
+# Run with: uvicorn main:app --reload</code></pre>
                             </div>
                         </div>
                         <div class="box">
-                            <h3>LangGraph Definition</h3>
-                            <p>LangGraph is a visual workflow tool for mapping model calls, tool integrations, and agent
-                                logic as graph nodes and edges.</p>
-                            <ul>
-                                <li>Design model workflows visually.</li>
-                                <li>Trace decision paths and tool usage.</li>
-                                <li>Export graphs into runnable agent pipelines.</li>
-                            </ul>
+                            <h3>FastAPI Realtime Query</h3>
+                            <p>Serve RAG and agentic queries through a practical FastAPI endpoint for simple web
+                                integration.</p>
                             <div class="code-panel">
-                                <pre><code># Conceptual LangGraph example pseudocode
-# Node A: user query
-# Node B: retrieve docs
-# Node C: generate answer
-# Connect nodes in a graph and run.
+                                <pre><code>from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class QueryRequest(BaseModel):
+    query: str
+
+@app.post("/query")
+def query_knowledge(body: QueryRequest):
+    docs = vector_store.search(body.query, top_k=4)
+    context = "\n\n".join([doc.text for doc in docs])
+    prompt = f"Use the facts below to answer the question:\n\n{context}\n\nQuestion: {body.query}"
+    answer = llm.generate(prompt)
+    return {"answer": answer}
 </code></pre>
                             </div>
                         </div>
                     </div>
-                    <div class="box" style="margin-top: 24px;">
-                        <h3>Advanced frameworks and tools</h3>
+                    <div class="box">
+                        <h3>FastMCP + FastAPI Use Cases</h3>
                         <ul>
-                            <li>Vector search: Pinecone, Weaviate, Milvus, Chroma, RedisVector.</li>
-                            <li>Open-source model runtime: Ollama, Hugging Face, Replicate.</li>
-                            <li>Agent orchestration: CrewAI, AutoGen, LangServe, LlamaIndex.</li>
-                            <li>Weather API integration: connect external APIs with LangChain tools.</li>
-                            <li>Monitoring and logs: LangGraph inspection, model tracing, and tool audit logs.</li>
+                            <li>Build chat pages, dashboards, and tools that query live knowledge bases.</li>
+                            <li>Expose agent tools safely while keeping state and logs in the backend.</li>
+                            <li>Refresh embeddings and answers as documents change in real time.</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <section class="section roadmap">
+            <section id="langchain" class="section langchain-section">
                 <div class="section-header">
                     <div>
-                        <span class="section-label">Practical Skills</span>
-                        <h2>Skills Roadmap</h2>
+                        <span class="section-label">Framework</span>
+                        <h2>LangChain: Build AI Applications</h2>
                     </div>
                 </div>
                 <div class="section-content">
-                    <div class="three-column">
-                        <div class="box skill-box">
-                            <h3>Beginner</h3>
-                            <ul>
-                                <li>Python basics and syntax</li>
-                                <li>Variables, loops, functions, and data structures</li>
-                                <li>APIs, HTTP calls, and JSON handling</li>
-                                <li>Basic data workflows with pandas or similar tools</li>
-                                <li>Build simple prompt apps and chat examples</li>
-                            </ul>
-                        </div>
-                        <div class="box skill-box">
-                            <h3>Intermediate</h3>
-                            <ul>
-                                <li>Machine learning with Python and model evaluation</li>
-                                <li>Data processing, visualization, and feature extraction</li>
-                                <li>Prompt engineering, instruction tuning, and LLM APIs</li>
-                                <li>RAG, embeddings, and semantic search systems</li>
-                                <li>Start using LangChain workflows and Ollama models</li>
-                            </ul>
-                        </div>
-                        <div class="box skill-box">
-                            <h3>Advanced</h3>
-                            <ul>
-                                <li>RAG systems, embeddings management, and indexing</li>
-                                <li>AI agents, tool use, and multi-step workflows</li>
-                                <li>Multi-agent orchestration and role-based systems</li>
-                                <li>Evaluation, safety, bias mitigation, and production readiness</li>
-                                <li>Deploy models, monitor behavior, and handle runtime errors</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="box" style="margin-top: 24px;">
-                        <h3>Learning Steps</h3>
-                        <ul>
-                            <li>Step 1: Learn Python, data structures, and basic programming concepts.</li>
-                            <li>Step 2: Practice API requests, data parsing, and prompt design.</li>
-                            <li>Step 3: Build an LLM-powered app with a prompt, then add retrieval.</li>
-                            <li>Step 4: Create a RAG pipeline using documents, embeddings, and search.
-                            </li>
-                            <li>Step 5: Add tool calls and agent flow with LangChain or LangGraph.</li>
-                            <li>Step 6: Measure outputs, fix errors, and deploy a model workflow.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+                    <p>LangChain is a framework for developing applications powered by language models. It connects
+                        prompts, chains, memory, tools, and data sources into production-ready AI workflows.</p>
 
-            <section class="section learn-better">
-                <div class="section-header">
-                    <div>
-                        <span class="section-label">Learn Better</span>
-                        <h2>How to Learn AI the Right Way</h2>
+                    <div class="feature-boxes">
+                        <div class="feature-box">
+                            <div class="feature-icon">⛓️</div>
+                            <h4>Chains</h4>
+                            <p>Combine prompts and LLMs into sequential workflows for complex reasoning and multi-step
+                                tasks.</p>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-icon">🔧</div>
+                            <h4>Tools & Agents</h4>
+                            <p>Equip AI with access to external tools, APIs, and services for autonomous
+                                decision-making.</p>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-icon">💾</div>
+                            <h4>Memory</h4>
+                            <p>Maintain conversation context and conversation history across multiple interactions.</p>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-icon">📚</div>
+                            <h4>RAG</h4>
+                            <p>Retrieve documents and augment generation with domain-specific knowledge.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="section-content">
+
                     <div class="two-column">
                         <div class="box">
-                            <h3>Practice by Building</h3>
-                            <ul>
-                                <li>Start with small LLM prompts and chat apps</li>
-                                <li>Build a RAG demo with a vector database</li>
-                                <li>Create an agent that calls tools or APIs</li>
+                            <h3>Core Features</h3>
+                            <ul class="feature-list">
+                                <li><strong>LLM Support:</strong> OpenAI, Google, Anthropic, Ollama, Hugging Face</li>
+                                <li><strong>Prompt Templates:</strong> Reusable, parameterized prompts</li>
+                                <li><strong>Output Parsing:</strong> Structure and extract data from LLM outputs</li>
+                                <li><strong>Vector Stores:</strong> Pinecone, Weaviate, Milvus, Chroma</li>
+                                <li><strong>Memory Management:</strong> Conversation history and context windows</li>
+                                <li><strong>Tool Integration:</strong> @tool decorator for function as tools</li>
+                                <li><strong>Async Support:</strong> Non-blocking I/O for scalability</li>
                             </ul>
                         </div>
                         <div class="box">
-                            <h3>Learn with Real Examples</h3>
-                            <ul>
-                                <li>Explore LangChain and LangGraph samples</li>
-                                <li>Study CrewAI and AutoGen agent patterns</li>
-                                <li>Use GPT, Google AI, Anthropic and Ollama APIs</li>
-                            </ul>
+                            <h3>Quick Start</h3>
+                            <div class="code-panel">
+                                <pre><code>from langchain_ollama import OllamaLLM
+from langchain_core.prompts import PromptTemplate
+
+# Initialize model
+llm = OllamaLLM(model="mistral")
+
+# Create prompt template
+prompt = PromptTemplate(
+    input_variables=["topic"],
+    template="Explain {topic} briefly"
+)
+
+# Build chain
+chain = prompt | llm
+
+# Run chain
+response = chain.invoke(
+    {"topic": "machine learning"}
+)
+print(response)</code></pre>
+                            </div>
                         </div>
                     </div>
-                    <ul class="checklist">
-                        <li>Read model docs and tutorials</li>
-                        <li>Experiment with prompts and instruction styles</li>
-                        <li>Evaluate outputs for quality and safety</li>
-                        <li>Use version control for prompt and code experiments</li>
-                        <li>Join AI communities and share your work</li>
+
+                    <div class="box">
+                        <h3>Agent Example with Tools</h3>
+                        <p>Create an AI agent that can use multiple tools to solve complex problems:</p>
+                        <div class="code-panel">
+                            <pre><code>from langchain_core.tools import tool
+from langchain.agents import create_react_agent, AgentExecutor
+from langchain import hub
+
+# Define tools
+@tool
+def calculate(expression: str) -> float:
+    """Calculate mathematical expressions"""
+    return eval(expression)
+
+@tool
+def get_info(topic: str) -> str:
+    """Get information about a topic"""
+    return f"Information about {topic}..."
+
+# Create agent
+tools = [calculate, get_info]
+prompt = hub.pull("hwchase17/react")
+agent = create_react_agent(llm, tools, prompt)
+executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+
+# Run agent
+response = executor.invoke(
+    {"input": "What is 25 * 4? And explain quantum computing."}
+)
+print(response["output"])</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="box">
+                        <h3>RAG Pipeline</h3>
+                        <p>Build a retrieval-augmented generation system:</p>
+                        <ul>
+                            <li>Load and chunk documents</li>
+                            <li>Create embeddings and store in vector DB</li>
+                            <li>Retrieve relevant docs for queries</li>
+                            <li>Generate answers with context</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>Memory Systems</h3>
+                        <p>Manage conversation context effectively:</p>
+                        <ul>
+                            <li>Buffer memory: Store all messages</li>
+                            <li>Window memory: Keep recent messages</li>
+                            <li>Summary memory: Compress old conversations</li>
+                            <li>Entity memory: Track specific entities</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <h3>Comparison with Other Frameworks</h3>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Feature</th>
+                            <th>LangChain</th>
+                            <th>LangGraph</th>
+                            <th>CrewAI</th>
+                            <th>AutoGen</th>
+                        </tr>
+                        <tr>
+                            <td>Chains</td>
+                            <td>✅ Yes</td>
+                            <td>🟡 Limited</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Agents</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Visual Workflow</td>
+                            <td>🟡 Limited</td>
+                            <td>✅ Yes</td>
+                            <td>🟡 Limited</td>
+                            <td>🟡 Limited</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-Agent</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Memory Management</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                            <td>✅ Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Learning Curve</td>
+                            <td>Moderate</td>
+                            <td>Moderate</td>
+                            <td>Easy</td>
+                            <td>Moderate</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Popular Use Cases</h4>
+                        <ul>
+                            <li>Chatbots & Q&A systems</li>
+                            <li>RAG applications</li>
+                            <li>Summarization pipelines</li>
+                            <li>Code generation</li>
+                            <li>Data extraction</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h4>When to Use</h4>
+                        <ul>
+                            <li>Building production LLM apps</li>
+                            <li>Need flexible tool integration</li>
+                            <li>Python-first development</li>
+                            <li>Complex multi-step workflows</li>
+                            <li>RAG at scale</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://python.langchain.com" target="_blank">Documentation</a></li>
+                            <li><a href="https://github.com/langchain-ai/langchain" target="_blank">GitHub</a></li>
+                            <li><a href="#">Examples & Tutorials</a></li>
+                            <li><a href="#">Community Discord</a></li>
+                        </ul>
+                    </div>
+                </div>
+    </div>
+    </section>
+
+    <section id="langgraph" class="section langgraph-section">
+        <div class="section-header">
+            <div>
+                <span class="section-label">Orchestration</span>
+                <h2>LangGraph: Visual Workflow Design</h2>
+            </div>
+        </div>
+        <div class="section-content">
+            <p>LangGraph is a library for building stateful, multi-actor applications with LLMs. It extends LangChain
+                with graph-based state management and deterministic workflows.</p>
+
+            <div class="feature-boxes">
+                <div class="feature-box">
+                    <div class="feature-icon">📊</div>
+                    <h4>Graph-Based States</h4>
+                    <p>Model workflows as directed graphs with nodes representing operations and edges representing
+                        state transitions.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🔄</div>
+                    <h4>Cyclic Workflows</h4>
+                    <p>Support feedback loops, retries, and iterative refinement within agent workflows.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Deterministic Execution</h4>
+                    <p>Replay, debug, and trace exact execution paths through complex agent logic.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🔍</div>
+                    <h4>Visualization</h4>
+                    <p>See your workflow as a visual graph during development and debugging.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="box">
+                    <h3>Key Concepts</h3>
+                    <ul class="feature-list">
+                        <li><strong>State:</strong> Shared data structure passed between nodes</li>
+                        <li><strong>Node:</strong> Function that processes state and returns updates</li>
+                        <li><strong>Edge:</strong> Connection between nodes with routing logic</li>
+                        <li><strong>Conditional Edges:</strong> Dynamic routing based on state</li>
+                        <li><strong>Cycles:</strong> Feedback loops for iterative refinement</li>
+                        <li><strong>Checkpointing:</strong> Save state snapshots for debugging</li>
+                        <li><strong>Streaming:</strong> Real-time output as graph executes</li>
                     </ul>
                 </div>
-            </section>
+                <div class="box">
+                    <h3>Simple Example</h3>
+                    <div class="code-panel">
+                        <pre><code>from langgraph.graph import StateGraph
+from typing_extensions import TypedDict
 
-            <section id="mcp" class="section mcp">
-                <div class="section-header">
-                    <div>
-                        <span class="section-label">Model Context Protocol</span>
-                        <h2>MCP Overview</h2>
+# Define state
+class AgentState(TypedDict):
+    messages: list
+    question: str
+    answer: str
+
+# Create graph
+graph = StateGraph(AgentState)
+
+# Define nodes
+def query_node(state):
+    # Process question
+    return {"answer": "Processing..."}
+
+def refine_node(state):
+    # Refine answer
+    return {"answer": "Refined answer"}
+
+# Add nodes
+graph.add_node("query", query_node)
+graph.add_node("refine", refine_node)
+
+# Add edges
+graph.add_edge("query", "refine")
+graph.set_entry_point("query")
+graph.set_finish_point("refine")
+
+# Compile and run
+app = graph.compile()
+result = app.invoke(
+    {"messages": [], "question": "What is AI?"}
+)</code></pre>
                     </div>
                 </div>
-                <div class="section-content">
-                    <p>MCP makes it easier to connect AI models and clients to external tools safely, reliably, and with
-                        consistent behavior.</p>
-                    <div class="two-column">
-                        <div class="box">
-                            <h3>Why MCP?</h3>
-                            <ul>
-                                <li>Standardize tool interfaces</li>
-                                <li>Enable secure external access</li>
-                                <li>Support reusable integrations</li>
-                                <li>Simplify multi-client workflows</li>
-                            </ul>
-                        </div>
-                        <div class="box">
-                            <h3>When to Use MCP</h3>
-                            <ul>
-                                <li>When AI needs external tool access</li>
-                                <li>When multiple apps use the same tool set</li>
-                                <li>When security and observability matter</li>
-                                <li>When you want a protocol-driven agent ecosystem</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="box">
-                        <h3>MCP Inspector Tool</h3>
-                        <p>The MCP Inspector helps teams review registered tools, validate request and response schemas,
-                            and trace tool call lifecycle events.</p>
-                        <ul>
-                            <li>Inspect tool manifests and supported operations.</li>
-                            <li>Validate input/output schemas before deployment.</li>
-                            <li>Replay tool calls using sample payloads.</li>
-                            <li>Debug authorization, routing, and response formats.</li>
-                        </ul>
-                    </div>
-                    <div class="box">
-                        <h3>How MCP Works</h3>
-                        <p>Model Context Protocol defines how a model client discovers tools, exchanges structured tool
-                            requests, and receives tool results in a consistent format.</p>
-                        <ul>
-                            <li>Define tool capabilities with metadata, input schema, and output schema.</li>
-                            <li>Register tools with a protocol server or gateway.</li>
-                            <li>Send model-generated tool calls through the MCP connector.</li>
-                            <li>Return tool outputs as structured context for the model to continue the workflow.</li>
-                        </ul>
-                    </div>
-                    <div class="box">
-                        <h3>MCP Configuration Example</h3>
-                        <p>Here is a simple tool manifest and client configuration pattern for MCP.</p>
-                        <div class="code-panel">
-                            <pre><code>{
+            </div>
+
+            <div class="box">
+                <h3>Advanced: Conditional Routing</h3>
+                <p>Make workflow decisions based on state:</p>
+                <div class="code-panel">
+                    <pre><code>def should_refine(state) -> bool:
+    """Check if answer needs refinement"""
+    return len(state["answer"]) < 50
+
+# Add conditional edge
+graph.add_conditional_edges(
+    "query",
+    should_refine,
+    {
+        True: "refine",     # If refinement needed
+        False: "complete"   # Otherwise complete
+    }
+)
+
+# This creates a dynamic workflow that adapts based on state</code></pre>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="box">
+                    <h3>Multi-Agent Workflows</h3>
+                    <p>Coordinate multiple agents with specific roles:</p>
+                    <ul>
+                        <li><strong>Planner Agent:</strong> Break down tasks</li>
+                        <li><strong>Executor Agent:</strong> Perform actions</li>
+                        <li><strong>Reviewer Agent:</strong> Validate results</li>
+                        <li><strong>Orchestrator:</strong> Manage flow</li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>Debugging & Monitoring</h3>
+                    <p>Built-in tools for development:</p>
+                    <ul>
+                        <li>Trace execution paths</li>
+                        <li>Inspect state changes</li>
+                        <li>Replay from checkpoints</li>
+                        <li>Visualize workflow graphs</li>
+                        <li>Performance profiling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="box">
+                <h3>LangGraph vs LangChain</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Aspect</th>
+                        <th>LangChain</th>
+                        <th>LangGraph</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Model</strong></td>
+                        <td>Sequential chains</td>
+                        <td>State graphs with cycles</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Complexity</strong></td>
+                        <td>Simple linear workflows</td>
+                        <td>Complex multi-step workflows</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Loops</strong></td>
+                        <td>Limited loop support</td>
+                        <td>Native cycle support</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Routing</strong></td>
+                        <td>Basic branching</td>
+                        <td>Conditional edge routing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>State</strong></td>
+                        <td>Implicit state passing</td>
+                        <td>Explicit TypedDict state</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Visualization</strong></td>
+                        <td>Limited</td>
+                        <td>Full graph visualization</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Use Case</strong></td>
+                        <td>Chains, RAG, basic agents</td>
+                        <td>Complex agents, workflows, reasoning</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>When to Use LangGraph</h4>
+                    <ul>
+                        <li>Complex multi-step agents</li>
+                        <li>Workflows with loops</li>
+                        <li>Need cycle execution</li>
+                        <li>Require precise tracing</li>
+                        <li>Conditional logic flows</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Graph Components</h4>
+                    <ul>
+                        <li>StateGraph: Core graph class</li>
+                        <li>add_node(): Add processing nodes</li>
+                        <li>add_edge(): Connect nodes</li>
+                        <li>add_conditional_edges(): Smart routing</li>
+                        <li>compile(): Prepare for execution</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4>Best Practices</h4>
+                    <ul>
+                        <li>Use TypedDict for state</li>
+                        <li>Keep nodes focused</li>
+                        <li>Explicit edge definitions</li>
+                        <li>Add proper error handling</li>
+                        <li>Test conditional routing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section ecosystem">
+        <div class="section-header">
+            <div>
+                <span class="section-label">Tools & Frameworks</span>
+                <h2>AI Ecosystem: CrewAI, AutoGen & Ollama</h2>
+            </div>
+        </div>
+        <div class="section-content">
+            <p>Explore complementary frameworks and tools that work with LangChain and LangGraph for building advanced
+                AI systems.</p>
+            <div class="card-grid">
+                <div class="card card-hero">
+                    <h4>CrewAI</h4>
+                    <p>Build cooperative multi-agent systems with defined roles, expertise, and collaborative workflows
+                        for complex tasks.</p>
+                </div>
+                <div class="card card-hero">
+                    <h4>AutoGen</h4>
+                    <p>Microsoft's framework for rapid multi-agent conversation prototyping and autonomous agent design.
+                    </p>
+                </div>
+                <div class="card card-hero">
+                    <h4>Ollama</h4>
+                    <p>Run large language models locally on your machine. Perfect for development and privacy-focused
+                        applications.</p>
+                </div>
+                <div class="card card-hero">
+                    <h4>LlamaIndex</h4>
+                    <p>Specialized framework for building data-connected applications and advanced RAG systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section roadmap">
+        <div class="section-header">
+            <div>
+                <span class="section-label">Practical Skills</span>
+                <h2>Skills Roadmap</h2>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="three-column">
+                <div class="box skill-box">
+                    <h3>Beginner</h3>
+                    <ul>
+                        <li>Python basics and syntax</li>
+                        <li>Variables, loops, functions, and data structures</li>
+                        <li>APIs, HTTP calls, and JSON handling</li>
+                        <li>Basic data workflows with pandas or similar tools</li>
+                        <li>Build simple prompt apps and chat examples</li>
+                    </ul>
+                </div>
+                <div class="box skill-box">
+                    <h3>Intermediate</h3>
+                    <ul>
+                        <li>Machine learning with Python and model evaluation</li>
+                        <li>Data processing, visualization, and feature extraction</li>
+                        <li>Prompt engineering, instruction tuning, and LLM APIs</li>
+                        <li>RAG, embeddings, and semantic search systems</li>
+                        <li>Start using LangChain workflows and Ollama models</li>
+                    </ul>
+                </div>
+                <div class="box skill-box">
+                    <h3>Advanced</h3>
+                    <ul>
+                        <li>RAG systems, embeddings management, and indexing</li>
+                        <li>AI agents, tool use, and multi-step workflows</li>
+                        <li>Multi-agent orchestration and role-based systems</li>
+                        <li>Evaluation, safety, bias mitigation, and production readiness</li>
+                        <li>Deploy models, monitor behavior, and handle runtime errors</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box" style="margin-top: 24px;">
+                <h3>Learning Steps</h3>
+                <ul>
+                    <li>Step 1: Learn Python, data structures, and basic programming concepts.</li>
+                    <li>Step 2: Practice API requests, data parsing, and prompt design.</li>
+                    <li>Step 3: Build an LLM-powered app with a prompt, then add retrieval.</li>
+                    <li>Step 4: Create a RAG pipeline using documents, embeddings, and search.
+                    </li>
+                    <li>Step 5: Add tool calls and agent flow with LangChain or LangGraph.</li>
+                    <li>Step 6: Measure outputs, fix errors, and deploy a model workflow.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section learn-better">
+        <div class="section-header">
+            <div>
+                <span class="section-label">Learn Better</span>
+                <h2>How to Learn AI the Right Way</h2>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="two-column">
+                <div class="box">
+                    <h3>Practice by Building</h3>
+                    <ul>
+                        <li>Start with small LLM prompts and chat apps</li>
+                        <li>Build a RAG demo with a vector database</li>
+                        <li>Create an agent that calls tools or APIs</li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>Learn with Real Examples</h3>
+                    <ul>
+                        <li>Explore LangChain and LangGraph samples</li>
+                        <li>Study CrewAI and AutoGen agent patterns</li>
+                        <li>Use GPT, Google AI, Anthropic and Ollama APIs</li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="checklist">
+                <li>Read model docs and tutorials</li>
+                <li>Experiment with prompts and instruction styles</li>
+                <li>Evaluate outputs for quality and safety</li>
+                <li>Use version control for prompt and code experiments</li>
+                <li>Join AI communities and share your work</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="mcp" class="section mcp">
+        <div class="section-header">
+            <div>
+                <span class="section-label">Model Context Protocol</span>
+                <h2>MCP Overview</h2>
+            </div>
+        </div>
+        <div class="section-content">
+            <p>MCP makes it easier to connect AI models and clients to external tools safely, reliably, and with
+                consistent behavior.</p>
+            <div class="two-column">
+                <div class="box">
+                    <h3>Why MCP?</h3>
+                    <ul>
+                        <li>Standardize tool interfaces</li>
+                        <li>Enable secure external access</li>
+                        <li>Support reusable integrations</li>
+                        <li>Simplify multi-client workflows</li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <h3>When to Use MCP</h3>
+                    <ul>
+                        <li>When AI needs external tool access</li>
+                        <li>When multiple apps use the same tool set</li>
+                        <li>When security and observability matter</li>
+                        <li>When you want a protocol-driven agent ecosystem</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box">
+                <h3>MCP Inspector Tool</h3>
+                <p>The MCP Inspector helps teams review registered tools, validate request and response schemas,
+                    and trace tool call lifecycle events.</p>
+                <ul>
+                    <li>Inspect tool manifests and supported operations.</li>
+                    <li>Validate input/output schemas before deployment.</li>
+                    <li>Replay tool calls using sample payloads.</li>
+                    <li>Debug authorization, routing, and response formats.</li>
+                </ul>
+            </div>
+            <div class="box">
+                <h3>How MCP Works</h3>
+                <p>Model Context Protocol defines how a model client discovers tools, exchanges structured tool
+                    requests, and receives tool results in a consistent format.</p>
+                <ul>
+                    <li>Define tool capabilities with metadata, input schema, and output schema.</li>
+                    <li>Register tools with a protocol server or gateway.</li>
+                    <li>Send model-generated tool calls through the MCP connector.</li>
+                    <li>Return tool outputs as structured context for the model to continue the workflow.</li>
+                </ul>
+            </div>
+            <div class="box">
+                <h3>MCP Configuration Example</h3>
+                <p>Here is a simple tool manifest and client configuration pattern for MCP.</p>
+                <div class="code-panel">
+                    <pre><code>{
   "tool_name": "weather_service",
   "description": "Fetch current weather and guidance for a city.",
   "endpoint": "https://api.example.com/weather",
@@ -1045,9 +1597,9 @@ print(response)</code></pre>
     "advice": "string"
   }
 }</code></pre>
-                        </div>
-                        <div class="code-panel">
-                            <pre><code># Python example using MCP client configuration
+                </div>
+                <div class="code-panel">
+                    <pre><code># Python example using MCP client configuration
 from mcp import MCPClient
 
 client = MCPClient(
@@ -1063,29 +1615,29 @@ client = MCPClient(
 
 response = client.run("Get current weather for Seattle and tell me whether to bring an umbrella.")
 print(response)</code></pre>
-                        </div>
-                    </div>
-                    <div class="box">
-                        <h3>Key MCP Concepts</h3>
-                        <ul>
-                            <li><strong>Tool manifest</strong>: Describes the name, inputs, outputs, and auth
-                                requirements.</li>
-                            <li><strong>Protocol server</strong>: Routes tool calls and applies security rules.</li>
-                            <li><strong>Client configuration</strong>: Connects the AI model to the registered MCP
-                                tools.</li>
-                            <li><strong>Secure credentials</strong>: Use environment variables or secrets managers to
-                                store tokens.
-                            </li>
-                        </ul>
-                    </div>
                 </div>
-            </section>
-        </main>
+            </div>
+            <div class="box">
+                <h3>Key MCP Concepts</h3>
+                <ul>
+                    <li><strong>Tool manifest</strong>: Describes the name, inputs, outputs, and auth
+                        requirements.</li>
+                    <li><strong>Protocol server</strong>: Routes tool calls and applies security rules.</li>
+                    <li><strong>Client configuration</strong>: Connects the AI model to the registered MCP
+                        tools.</li>
+                    <li><strong>Secure credentials</strong>: Use environment variables or secrets managers to
+                        store tokens.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    </main>
 
-        <footer>
-            <p>Updated June 2026 • AI foundations, GenAI, Agentic AI, LangChain, CrewAI, AutoGen, and MCP learning
-                roadmap.</p>
-        </footer>
+    <footer>
+        <p>Updated June 2026 • AI foundations, GenAI, Agentic AI, LangChain, CrewAI, AutoGen, and MCP learning
+            roadmap.</p>
+    </footer>
     </div>
 </body>
 
