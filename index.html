@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0b1120">
+    <meta name="description"
+        content="A modern, beginner-friendly roadmap for AI, Generative AI, LLMs, Agentic AI, LangChain, LangGraph, CrewAI, AutoGen and MCP.">
     <title>AI Concepts, LLMs, Agentic AI & Model Context Protocol</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,15 +15,15 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="page-shell">
         <header class="hero">
             <div class="hero-copy">
                 <p class="eyebrow">AI Learning Guide</p>
-                <h1>AI Concepts, LLMs, Agentic AI & Model Context Protocol</h1>
+                <h1>AI Concepts, LLMs, Agentic AI &amp; Model Context Protocol</h1>
                 <p class="hero-text">A modern, beginner-friendly roadmap for AI, Generative AI, Agent workflows, AI
-                    Agents, Agentic AI
-                    LangChain, LangGraph, CrewAI, AutoGen and MCP.</p>
-                <div class="hero-tags">
+                    Agents, Agentic AI, LangChain, LangGraph, CrewAI, AutoGen and MCP.</p>
+                <div class="hero-tags" role="navigation" aria-label="Quick topic links">
                     <a class="hero-tag" href="#ai-roadmap">AI Roadmap</a>
                     <a class="hero-tag" href="#prompt-engineering">Prompt Engineering</a>
                     <a class="hero-tag" href="#llms">Large Language Models (LLMs)</a>
@@ -41,7 +44,7 @@
                     <h2>Prompt Engineering</h2>
                     <p>Jump to the prompt engineering guide and see examples for strong AI instructions.</p>
                     <a class="cta-button" href="#prompt-engineering">Prompt Example</a>
-                    <div class="prompt-image">
+                    <div class="prompt-image" role="img" aria-label="Prompt engineering visual placeholder">
                         <div class="prompt-image-label">Prompt engineering visual</div>
                     </div>
                 </div>
@@ -58,10 +61,17 @@
             </div>
         </header>
 
-        <nav class="top-nav">
-            <a href="#ai-roadmap">AI Roadmap</a>
+        <button class="nav-toggle" type="button" aria-controls="primary-nav" aria-expanded="false"
+            aria-label="Toggle navigation menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+
+        <nav class="top-nav" id="primary-nav" aria-label="Primary">
             <a href="#ai-foundations">Foundations</a>
-            <a href="#llms">Large Language Models</a>
+            <a href="#ai-roadmap">AI Roadmap</a>
+            <a href="#llms">LLMs</a>
             <a href="#genai">Generative AI</a>
             <a href="#prompt-engineering">Prompt Engineering</a>
             <a href="#workflows">AI Workflows</a>
@@ -72,7 +82,7 @@
             <a href="#mcp">MCP</a>
         </nav>
 
-        <main>
+        <main id="main-content">
             <section id="ai-foundations" class="section intro">
                 <div class="section-header">
                     <div>
@@ -341,54 +351,56 @@ def query_knowledge(body: QueryRequest):
                     </div>
                     <div class="box">
                         <h3>RAG vs Fine-Tune Comparison</h3>
-                        <table class="term-table">
-                            <tr>
-                                <th>Aspect</th>
-                                <th>RAG (Retrieval-Augmented Generation)</th>
-                                <th>Fine-Tuning</th>
-                            </tr>
-                            <tr>
-                                <td><strong>How it works</strong></td>
-                                <td>Retrieves external documents at runtime and passes them as context to the model.
-                                </td>
-                                <td>Modifies model weights offline using labeled training data.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Model changes</strong></td>
-                                <td>Model stays unchanged; only context is added.</td>
-                                <td>Model weights and parameters are permanently updated.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Update frequency</strong></td>
-                                <td>Can add new documents anytime without retraining.</td>
-                                <td>Requires retraining to incorporate new knowledge.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Cost</strong></td>
-                                <td>Lower cost (vector storage + retrieval).</td>
-                                <td>Higher cost (compute, GPU time, data labeling).</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Latency</strong></td>
-                                <td>Slightly higher (retrieval + generation).</td>
-                                <td>Lower (only generation phase).</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Data needed</strong></td>
-                                <td>Documents, no labeling required.</td>
-                                <td>Labeled input/output pairs.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Best for</strong></td>
-                                <td>Up-to-date knowledge, large document sets, Q&A systems.</td>
-                                <td>Task-specific style, consistent behavior, specialized domains.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Hallucination risk</strong></td>
-                                <td>Lower (grounds answers in retrieved docs).</td>
-                                <td>Higher (model may generate plausible but false outputs).</td>
-                            </tr>
-                        </table>
+                        <div class="table-scroll">
+                            <table class="term-table">
+                                <tr>
+                                    <th>Aspect</th>
+                                    <th>RAG (Retrieval-Augmented Generation)</th>
+                                    <th>Fine-Tuning</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>How it works</strong></td>
+                                    <td>Retrieves external documents at runtime and passes them as context to the model.
+                                    </td>
+                                    <td>Modifies model weights offline using labeled training data.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Model changes</strong></td>
+                                    <td>Model stays unchanged; only context is added.</td>
+                                    <td>Model weights and parameters are permanently updated.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Update frequency</strong></td>
+                                    <td>Can add new documents anytime without retraining.</td>
+                                    <td>Requires retraining to incorporate new knowledge.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cost</strong></td>
+                                    <td>Lower cost (vector storage + retrieval).</td>
+                                    <td>Higher cost (compute, GPU time, data labeling).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Latency</strong></td>
+                                    <td>Slightly higher (retrieval + generation).</td>
+                                    <td>Lower (only generation phase).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Data needed</strong></td>
+                                    <td>Documents, no labeling required.</td>
+                                    <td>Labeled input/output pairs.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Best for</strong></td>
+                                    <td>Up-to-date knowledge, large document sets, Q&A systems.</td>
+                                    <td>Task-specific style, consistent behavior, specialized domains.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hallucination risk</strong></td>
+                                    <td>Lower (grounds answers in retrieved docs).</td>
+                                    <td>Higher (model may generate plausible but false outputs).</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                     <div class="box">
                         <h3>When to Use RAG</h3>
@@ -715,44 +727,46 @@ Markdown</code></pre>
                     </div>
                     <div class="box">
                         <h3>Key Terms</h3>
-                        <table class="term-table">
-                            <tr>
-                                <th>Term</th>
-                                <th>Meaning</th>
-                            </tr>
-                            <tr>
-                                <td>Prompt</td>
-                                <td>Input given to an AI model</td>
-                            </tr>
-                            <tr>
-                                <td>Prompt Engineering</td>
-                                <td>Designing effective prompts</td>
-                            </tr>
-                            <tr>
-                                <td>Zero-Shot</td>
-                                <td>No examples provided</td>
-                            </tr>
-                            <tr>
-                                <td>One-Shot</td>
-                                <td>One example provided</td>
-                            </tr>
-                            <tr>
-                                <td>Few-Shot</td>
-                                <td>Multiple examples provided</td>
-                            </tr>
-                            <tr>
-                                <td>Chain-of-Thought</td>
-                                <td>Step-by-step reasoning</td>
-                            </tr>
-                            <tr>
-                                <td>Constraints</td>
-                                <td>Rules placed on outputs</td>
-                            </tr>
-                            <tr>
-                                <td>Prompt Chaining</td>
-                                <td>Breaking tasks into stages</td>
-                            </tr>
-                        </table>
+                        <div class="table-scroll">
+                            <table class="term-table">
+                                <tr>
+                                    <th>Term</th>
+                                    <th>Meaning</th>
+                                </tr>
+                                <tr>
+                                    <td>Prompt</td>
+                                    <td>Input given to an AI model</td>
+                                </tr>
+                                <tr>
+                                    <td>Prompt Engineering</td>
+                                    <td>Designing effective prompts</td>
+                                </tr>
+                                <tr>
+                                    <td>Zero-Shot</td>
+                                    <td>No examples provided</td>
+                                </tr>
+                                <tr>
+                                    <td>One-Shot</td>
+                                    <td>One example provided</td>
+                                </tr>
+                                <tr>
+                                    <td>Few-Shot</td>
+                                    <td>Multiple examples provided</td>
+                                </tr>
+                                <tr>
+                                    <td>Chain-of-Thought</td>
+                                    <td>Step-by-step reasoning</td>
+                                </tr>
+                                <tr>
+                                    <td>Constraints</td>
+                                    <td>Rules placed on outputs</td>
+                                </tr>
+                                <tr>
+                                    <td>Prompt Chaining</td>
+                                    <td>Breaking tasks into stages</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1095,57 +1109,59 @@ print(response["output"])</code></pre>
 
                 <div class="box">
                     <h3>Comparison with Other Frameworks</h3>
-                    <table class="comparison-table">
-                        <tr>
-                            <th>Feature</th>
-                            <th>LangChain</th>
-                            <th>LangGraph</th>
-                            <th>CrewAI</th>
-                            <th>AutoGen</th>
-                        </tr>
-                        <tr>
-                            <td>Chains</td>
-                            <td>✅ Yes</td>
-                            <td>🟡 Limited</td>
-                            <td>✅ Yes</td>
-                            <td>✅ Yes</td>
-                        </tr>
-                        <tr>
-                            <td>Agents</td>
-                            <td>✅ Yes</td>
-                            <td>✅ Yes</td>
-                            <td>✅ Yes</td>
-                            <td>✅ Yes</td>
-                        </tr>
-                        <tr>
-                            <td>Visual Workflow</td>
-                            <td>🟡 Limited</td>
-                            <td>✅ Yes</td>
-                            <td>🟡 Limited</td>
-                            <td>🟡 Limited</td>
-                        </tr>
-                        <tr>
-                            <td>Multi-Agent</td>
-                            <td>✅ Yes</td>
-                            <td>✅ Yes</td>
-                            <td>✅ Yes</td>
-                            <td>✅ Yes</td>
-                        </tr>
-                        <tr>
-                            <td>Memory Management</td>
-                            <td>✅ Yes</td>
-                            <td>✅ Yes</td>
-                            <td>✅ Yes</td>
-                            <td>✅ Yes</td>
-                        </tr>
-                        <tr>
-                            <td>Learning Curve</td>
-                            <td>Moderate</td>
-                            <td>Moderate</td>
-                            <td>Easy</td>
-                            <td>Moderate</td>
-                        </tr>
-                    </table>
+                    <div class="table-scroll">
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Feature</th>
+                                <th>LangChain</th>
+                                <th>LangGraph</th>
+                                <th>CrewAI</th>
+                                <th>AutoGen</th>
+                            </tr>
+                            <tr>
+                                <td>Chains</td>
+                                <td>✅ Yes</td>
+                                <td>🟡 Limited</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Agents</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Visual Workflow</td>
+                                <td>🟡 Limited</td>
+                                <td>✅ Yes</td>
+                                <td>🟡 Limited</td>
+                                <td>🟡 Limited</td>
+                            </tr>
+                            <tr>
+                                <td>Multi-Agent</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Memory Management</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Learning Curve</td>
+                                <td>Moderate</td>
+                                <td>Moderate</td>
+                                <td>Easy</td>
+                                <td>Moderate</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="info-grid">
@@ -1320,48 +1336,50 @@ graph.add_conditional_edges(
 
             <div class="box">
                 <h3>LangGraph vs LangChain</h3>
-                <table class="comparison-table">
-                    <tr>
-                        <th>Aspect</th>
-                        <th>LangChain</th>
-                        <th>LangGraph</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Model</strong></td>
-                        <td>Sequential chains</td>
-                        <td>State graphs with cycles</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Complexity</strong></td>
-                        <td>Simple linear workflows</td>
-                        <td>Complex multi-step workflows</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Loops</strong></td>
-                        <td>Limited loop support</td>
-                        <td>Native cycle support</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Routing</strong></td>
-                        <td>Basic branching</td>
-                        <td>Conditional edge routing</td>
-                    </tr>
-                    <tr>
-                        <td><strong>State</strong></td>
-                        <td>Implicit state passing</td>
-                        <td>Explicit TypedDict state</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Visualization</strong></td>
-                        <td>Limited</td>
-                        <td>Full graph visualization</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Use Case</strong></td>
-                        <td>Chains, RAG, basic agents</td>
-                        <td>Complex agents, workflows, reasoning</td>
-                    </tr>
-                </table>
+                <div class="table-scroll">
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Aspect</th>
+                            <th>LangChain</th>
+                            <th>LangGraph</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Model</strong></td>
+                            <td>Sequential chains</td>
+                            <td>State graphs with cycles</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Complexity</strong></td>
+                            <td>Simple linear workflows</td>
+                            <td>Complex multi-step workflows</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Loops</strong></td>
+                            <td>Limited loop support</td>
+                            <td>Native cycle support</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Routing</strong></td>
+                            <td>Basic branching</td>
+                            <td>Conditional edge routing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>State</strong></td>
+                            <td>Implicit state passing</td>
+                            <td>Explicit TypedDict state</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Visualization</strong></td>
+                            <td>Limited</td>
+                            <td>Full graph visualization</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Use Case</strong></td>
+                            <td>Chains, RAG, basic agents</td>
+                            <td>Complex agents, workflows, reasoning</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
 
             <div class="info-grid">
@@ -1634,11 +1652,62 @@ print(response)</code></pre>
     </section>
     </main>
 
+    <button class="back-to-top" type="button" aria-label="Back to top" hidden>
+        <span aria-hidden="true">↑</span>
+        <span class="back-to-top-label">Top</span>
+    </button>
+
     <footer>
         <p>Updated June 2026 • AI foundations, GenAI, Agentic AI, LangChain, CrewAI, AutoGen, and MCP learning
             roadmap.</p>
     </footer>
     </div>
+    <script>
+        // Mobile navigation toggle
+        (function ()
+        {
+            var toggle = document.querySelector('.nav-toggle');
+            var nav = document.getElementById('primary-nav');
+            if (toggle && nav)
+            {
+                toggle.addEventListener('click', function ()
+                {
+                    var expanded = toggle.getAttribute('aria-expanded') === 'true';
+                    toggle.setAttribute('aria-expanded', String(!expanded));
+                    nav.classList.toggle('is-open');
+                });
+                nav.addEventListener('click', function (e)
+                {
+                    if (e.target.tagName === 'A')
+                    {
+                        toggle.setAttribute('aria-expanded', 'false');
+                        nav.classList.remove('is-open');
+                    }
+                });
+            }
+            // Back to top button
+            var topBtn = document.querySelector('.back-to-top');
+            if (topBtn)
+            {
+                var toggleBtn = function ()
+                {
+                    if (window.scrollY > 400)
+                    {
+                        topBtn.hidden = false;
+                    } else
+                    {
+                        topBtn.hidden = true;
+                    }
+                };
+                window.addEventListener('scroll', toggleBtn, { passive: true });
+                toggleBtn();
+                topBtn.addEventListener('click', function ()
+                {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+        })();
+    </script>
 </body>
 
 </html>
