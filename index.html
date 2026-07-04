@@ -28,25 +28,51 @@
                     <a class="hero-tag" href="#prompt-engineering">Prompt Engineering</a>
                     <a class="hero-tag" href="#llms">Large Language Models (LLMs)</a>
                     <a class="hero-tag" href="#genai">Generative AI (GenAI)</a>
-                    <a class="hero-tag" href="#agentic-ai">AI Agents</a>
+                    <a class="hero-tag" href="#ai-agents">AI Agents</a>
                     <a class="hero-tag" href="#agentic-ai">Agentic AI</a>
                     <a class="hero-tag" href="#rag">RAG</a>
                     <a class="hero-tag" href="#mcp">MCP</a>
                 </div>
             </div>
             <div class="hero-panel">
-                <div class="panel-card">
-                    <h2>Start Here</h2>
-                    <p>Follow the three phases, practice with examples, and build agentic systems that go beyond chat.
-                    </p>
+                <div class="panel-card carousel-card" aria-label="Learning path preview">
+                    <div class="carousel-track">
+                        <div class="carousel-slide is-active">
+                            <p class="carousel-label">Start Here</p>
+                            <h2>Follow the 3 learning phases</h2>
+                            <p>Begin with foundations, move into generative AI, and then build agentic workflows.</p>
+                            <ul>
+                                <li>Learn the core concepts</li>
+                                <li>Practice with examples</li>
+                                <li>Build beyond simple chat</li>
+                            </ul>
+                        </div>
+                        <div class="carousel-slide">
+                            <p class="carousel-label">Next Step</p>
+                            <h2>Use prompts, RAG, and tools</h2>
+                            <p>Connect language models with memory, data, and workflows for better results.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <p class="carousel-label">Goal</p>
+                            <h2>Create real AI applications</h2>
+                            <p>Move from theory to hands-on projects such as assistants, search systems, and agents.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-dots" aria-label="Carousel navigation">
+                        <button class="carousel-dot is-active" type="button" aria-label="Show first slide"></button>
+                        <button class="carousel-dot" type="button" aria-label="Show second slide"></button>
+                        <button class="carousel-dot" type="button" aria-label="Show third slide"></button>
+                    </div>
                 </div>
                 <div class="panel-card panel-accent">
                     <h2>Prompt Engineering</h2>
                     <p>Jump to the prompt engineering guide and see examples for strong AI instructions.</p>
                     <a class="cta-button" href="#prompt-engineering">Prompt Example</a>
-                    <div class="prompt-image" role="img" aria-label="Prompt engineering visual placeholder">
-                        <div class="prompt-image-label">Prompt engineering visual</div>
-                    </div>
+                    <ul class="panel-card-list">
+                        <li>Use clear roles and task instructions.</li>
+                        <li>Add context and output format requests.</li>
+                        <li>Keep prompts concise but specific.</li>
+                    </ul>
                 </div>
                 <div class="panel-card panel-accent">
                     <h2>Example Tools</h2>
@@ -56,6 +82,10 @@
                         <li>Anthropic / Ollama</li>
                         <li>LangChain / LangGraph</li>
                         <li>CrewAI / AutoGen</li>
+                        <li>Hugging Face</li>
+                        <li>FastAPI / FastMCP</li>
+                        <li>Azure AI Search</li>
+                        <li>Chroma / Pinecone / Weaviate</li>
                     </ul>
                 </div>
             </div>
@@ -74,6 +104,7 @@
             <a href="#llms">LLMs</a>
             <a href="#genai">Generative AI</a>
             <a href="#prompt-engineering">Prompt Engineering</a>
+            <a href="#ai-agents">AI Agents</a>
             <a href="#workflows">AI Workflows</a>
             <a href="#rag">RAG</a>
             <a href="#langchain">LangChain</a>
@@ -127,7 +158,40 @@
                 </div>
                 <div class="section-content">
                     <p>Follow a practical learning path that moves from AI fundamentals to production-ready agent
-                        systems.</p>
+                        systems. This roadmap covers core concepts, practical skills, and deployment strategies for
+                        building intelligent applications.</p>
+                    <div class="topic-grid">
+                        <article class="topic-card">
+                            <h3>AI Fundamentals</h3>
+                            <p>Grasp the basics of AI, machine learning, deep learning, and neural networks to build a
+                                strong theoretical foundation.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Generative AI & LLMs</h3>
+                            <p>Dive into large language models, prompt engineering, fine-tuning, and Retrieval-Augmented
+                                Generation (RAG).</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>AI Agents & Workflows</h3>
+                            <p>Learn to design, build, and deploy AI agents that use tools, memory, and multi-step
+                                reasoning to solve tasks.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>AI Safety & Ethics</h3>
+                            <p>Understand the importance of responsible AI development, bias mitigation, and ethical
+                                considerations.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Deployment & MLOps</h3>
+                            <p>Gain skills in deploying AI models, monitoring performance, and managing the AI lifecycle
+                                in production.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Model Context Protocol (MCP)</h3>
+                            <p>Explore how to integrate AI tools and models safely and reliably using protocol-driven
+                                architectures.</p>
+                        </article>
+                    </div>
                     <div class="two-column">
                         <div class="box">
                             <h3>Roadmap Phases</h3>
@@ -147,6 +211,16 @@
                                 <li>Agent planning, memory, tool use, human-in-loop, and multi-agent systems</li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="box">
+                        <h3>Key Milestones</h3>
+                        <ul>
+                            <li>Build a basic LLM chatbot that understands context.</li>
+                            <li>Implement a RAG system for factual, up-to-date answers.</li>
+                            <li>Develop an AI agent that can use at least two external tools.</li>
+                            <li>Design and deploy a multi-step AI workflow.</li>
+                            <li>Contribute to an open-source AI project or create your own.</li>
+                        </ul>
                     </div>
                     <div class="box">
                         <h3>Learning Checklist</h3>
@@ -244,23 +318,56 @@
                     <div class="topic-grid">
                         <article class="topic-card">
                             <h3>What are LLMs?</h3>
-                            <p>LLMs are models trained on large text corpora to understand and generate language based
-                                on context.</p>
+                            <p>LLMs are AI models trained on huge amounts of text so they can understand questions,
+                                write text, summarize content, and help with many language tasks.</p>
                         </article>
                         <article class="topic-card">
                             <h3>How LLMs work</h3>
-                            <p>They predict the next token in a sequence using attention and deep transformer layers.
-                            </p>
+                            <p>They learn patterns in language and predict the next word or token. This helps them
+                                generate useful responses, explanations, and code.</p>
                         </article>
                         <article class="topic-card">
-                            <h3>Input and output</h3>
-                            <p>Prompts become model input, and the model returns generated text, summaries, or code.</p>
+                            <h3>Why do we use LLMs?</h3>
+                            <p>We use LLMs because they can save time, automate repetitive writing tasks, support
+                                customer service, help developers, and make information easier to search.</p>
                         </article>
                         <article class="topic-card">
-                            <h3>Applications</h3>
-                            <p>LLMs power chatbots, assistants, code generation, content creation, and semantic search.
-                            </p>
+                            <h3>Simple examples</h3>
+                            <p>Example: an LLM can summarize a long report, answer a question about company policy, or
+                                generate a Python function from a request.</p>
                         </article>
+                    </div>
+                    <div class="box">
+                        <h3>Why LLMs are useful</h3>
+                        <ul>
+                            <li>They understand natural language, so people can interact with them easily.</li>
+                            <li>They can help with writing, learning, coding, and brainstorming.</li>
+                            <li>They can be connected to tools, documents, and workflows for smarter applications.</li>
+                            <li>They can be used in chatbots, assistants, search systems, and automation tools.</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>How it works when you type a query in a chat window</h3>
+                        <p>When a user sends a message, the system follows a short flow to produce a response.</p>
+                        <ol>
+                            <li><strong>Read the question:</strong> The model receives your text input.</li>
+                            <li><strong>Understand the intent:</strong> It tries to understand what you want.</li>
+                            <li><strong>Use its training and context:</strong> It uses patterns learned during training
+                                and any recent chat context.</li>
+                            <li><strong>Generate an answer:</strong> It predicts a helpful response word by word.</li>
+                            <li><strong>Return the reply:</strong> The final answer is shown in the chat window.</li>
+                        </ol>
+                        <p><strong>In short:</strong> question → understanding → response generation → chat reply.</p>
+                    </div>
+                    <div class="box">
+                        <h3>Easy examples of LLM usage</h3>
+                        <ul>
+                            <li><strong>Student:</strong> Ask for a simple explanation of neural networks.</li>
+                            <li><strong>Developer:</strong> Ask for a Python script to read a CSV file.</li>
+                            <li><strong>Business:</strong> Ask for a summary of meeting notes and action items.</li>
+                            <li><strong>Support team:</strong> Use an LLM to answer common questions from documentation.
+                            </li>
+                        </ul>
                     </div>
                     <div class="box">
                         <h3>LLM Examples</h3>
@@ -293,13 +400,57 @@
                         </div>
                     </div>
                     <div class="box">
-                        <h3>RAG Workflow</h3>
+                        <h3>RAG Step-by-Step</h3>
+                        <p>RAG works in simple stages: bring in knowledge, find the right pieces, and use them to
+                            answer.</p>
+                        <ol>
+                            <li><strong>Data ingestion:</strong> Collect documents such as PDFs, websites, notes, or
+                                database records.</li>
+                            <li><strong>Clean and organize:</strong> Remove irrelevant text, fix formatting, and prepare
+                                the content.</li>
+                            <li><strong>Split into chunks:</strong> Break long documents into smaller pieces so
+                                retrieval is more accurate.</li>
+                            <li><strong>Create embeddings:</strong> Turn each chunk into a vector using an embedding
+                                model.</li>
+                            <li><strong>Store in a vector database:</strong> Save the vectors along with useful metadata
+                                like source and title.</li>
+                            <li><strong>Receive a user question:</strong> The user asks something that needs an answer.
+                            </li>
+                            <li><strong>Find similar content:</strong> Convert the question into a vector and search the
+                                database for the closest matches.</li>
+                            <li><strong>Send context to the LLM:</strong> Give the retrieved chunks to the model as
+                                extra context.</li>
+                            <li><strong>Generate the final answer:</strong> The LLM answers using the retrieved
+                                information and can cite the source.</li>
+                            <li><strong>Improve over time:</strong> Review results, adjust chunk size, and refine
+                                retrieval quality.</li>
+                        </ol>
+                    </div>
+                    <div class="box">
+                        <h3>Vector Databases and Retrieval</h3>
+                        <p>Vector databases store embeddings and support fast similarity search for semantic retrieval,
+                            FAQ bots, and knowledge assistants.</p>
                         <ul>
-                            <li>Collect source documents</li>
-                            <li>Embed content into vectors</li>
-                            <li>Search with a query</li>
-                            <li>Return context to the model</li>
-                            <li>Generate a grounded response</li>
+                            <li><strong>Why they matter:</strong> They let you search by meaning rather than exact
+                                keywords.</li>
+                            <li><strong>Common options:</strong> Pinecone, Weaviate, Milvus, Chroma, pgvector, and Azure
+                                AI Search.</li>
+                            <li><strong>Key features:</strong> Metadata filters, hybrid search, reranking, and
+                                approximate nearest neighbor indexes.</li>
+                            <li><strong>Best practice:</strong> Keep chunk size small, store useful metadata, and
+                                refresh embeddings when content changes.</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>RAG Approach in Practice</h3>
+                        <p>A production RAG system usually combines retrieval, ranking, prompt construction, and
+                            evaluation.</p>
+                        <ul>
+                            <li><strong>Simple RAG:</strong> Retrieve top-k chunks and append them to the prompt.</li>
+                            <li><strong>Advanced RAG:</strong> Add reranking, citation checks, chunk metadata, and query
+                                rewriting.</li>
+                            <li><strong>Agentic RAG:</strong> Let an agent decide when to search, which tools to use,
+                                and how to verify results.</li>
                         </ul>
                     </div>
                     <div class="box">
@@ -344,9 +495,31 @@ def query_knowledge(body: QueryRequest):
                     <div class="box">
                         <h3>Realtime RAG Use Cases</h3>
                         <ul>
-                            <li>Live customer support with current documentation and product updates.</li>
-                            <li>Operational monitoring that answers questions from logs, alerts, and dashboards.</li>
-                            <li>Sales assistants that fetch the latest pricing, inventory, and policy details.</li>
+                            <li><strong>Customer support:</strong> Answers questions using the latest help articles and
+                                product updates. <em>Why RAG?</em> It gives fresh, accurate answers without retraining
+                                the model.</li>
+                            <li><strong>Operations monitoring:</strong> Explains alerts and logs from live systems.
+                                <em>Why RAG?</em> It pulls current incident details and helps teams respond faster.
+                            </li>
+                            <li><strong>Sales assistant:</strong> Finds current pricing, inventory, and policy
+                                information. <em>Why RAG?</em> It ensures the assistant uses the latest business data.
+                            </li>
+                            <li><strong>HR chatbot:</strong> Answers policy questions from employee handbooks and
+                                internal documents. <em>Why RAG?</em> It keeps responses grounded in approved company
+                                knowledge.</li>
+                            <li><strong>Legal or medical search:</strong> Retrieves relevant documents for review.
+                                <em>Why RAG?</em> It improves accuracy by grounding answers in trusted sources.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>Why we use RAG in real-time systems</h3>
+                        <p>RAG is useful when the answer must be based on current or private information.</p>
+                        <ul>
+                            <li>It reduces hallucinations by giving the model real retrieved context.</li>
+                            <li>It allows updates without retraining the model every time content changes.</li>
+                            <li>It works well for chatbots, search tools, support systems, and internal knowledge
+                                assistants.</li>
                         </ul>
                     </div>
                     <div class="box">
@@ -423,20 +596,27 @@ def query_knowledge(body: QueryRequest):
                     <div class="box">
                         <h3>How to Fine-Tune</h3>
                         <p>Fine-tuning adapts an existing model using labeled examples or a domain-specific dataset.</p>
+                        <p><strong>In simple words:</strong> start with a strong pre-trained model, teach it with
+                            examples, and then use the updated version for your task.</p>
                         <ul>
                             <li><strong>Step 1:</strong> Choose a base model that matches your task, such as a text
                                 generation or classification model.</li>
-                            <li><strong>Step 2:</strong> Collect and format training data with input/output pairs, e.g.
-                                CSV/JSON lines or a dataset object.</li>
+                            <li><strong>Step 2:</strong> Collect and format training data with input/output pairs, such
+                                as CSV, JSONL, or a dataset object.</li>
                             <li><strong>Step 3:</strong> Tokenize your data with the model tokenizer and prepare
-                                training/validation splits.</li>
-                            <li><strong>Step 4:</strong> Configure training arguments like batch size, learning rate,
+                                training and validation splits.</li>
+                            <li><strong>Step 4:</strong> Set training settings like batch size, learning rate, number of
                                 epochs, and evaluation strategy.</li>
-                            <li><strong>Step 5:</strong> Train the model using a Trainer or fine-tuning API, then
-                                validate on held-out examples.</li>
-                            <li><strong>Step 6:</strong> Save the fine-tuned model, upload to Hugging Face Hub, or
-                                deploy in a demo space.</li>
+                            <li><strong>Step 5:</strong> Train the model using a Trainer or fine-tuning API, then test
+                                it on sample examples.</li>
+                            <li><strong>Step 6:</strong> Save the fine-tuned model, upload it to a model hub, or deploy
+                                it in an app.</li>
                         </ul>
+                        <p><strong>What changes after fine-tuning?</strong> The model becomes better at your specific
+                            style, task, or domain, but it does not automatically learn new facts unless you retrain it
+                            with updated data.</p>
+                        <p><strong>Important note:</strong> Fine-tuning needs good quality data. If the examples are
+                            noisy or inconsistent, the model may learn the wrong pattern.</p>
                         <div class="code-panel">
                             <pre><code>from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, TrainingArguments, Trainer
@@ -771,6 +951,97 @@ Markdown</code></pre>
                 </div>
             </section>
 
+            <section id="ai-agents" class="section showcase">
+                <div class="section-header">
+                    <div>
+                        <span class="section-label">Phase 3</span>
+                        <h2>AI Agents</h2>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <p>AI agents are systems that solve tasks by using language models, tools, data, and memory. They
+                        can plan, execute, and adapt to achieve complex goals, moving beyond simple conversational AI.
+                        Learners should focus on goals, tool usage, and step-by-step action plans.</p>
+                    <div class="topic-grid">
+                        <article class="topic-card">
+                            <h3>Agent Fundamentals</h3>
+                            <p>Understand the core components: LLMs as the brain, memory for state, and tools for
+                                actions.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Planning & Reasoning</h3>
+                            <p>Learn how agents break down tasks, create action plans, and reason through problems.
+                            </p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Tool Integration</h3>
+                            <p>Connect agents to external systems (APIs, databases, web search) to perform real-world
+                                operations.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Memory Systems</h3>
+                            <p>Implement short-term and long-term memory to maintain context and learn from past
+                                interactions.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Multi-Agent Collaboration</h3>
+                            <p>Explore how multiple agents with specialized roles can work together to solve larger
+                                problems.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Evaluation & Safety</h3>
+                            <p>Develop strategies to evaluate agent performance, ensure reliability, and mitigate risks.
+                            </p>
+                        </article>
+                    </div>
+                    <div class="box">
+                        <h3>AI Agent Learning Path</h3>
+                        <ol>
+                            <li>Understand how LLMs work and how to write clear prompts.</li>
+                            <li>Build a basic chatbot and define clear agent goals.</li>
+                            <li>Add retrieval from a vector database for grounded answers.</li>
+                            <li>Connect simple tools like search, calculators, or document lookup.</li>
+                            <li>Use short-term memory to keep context across turns.</li>
+                            <li>Test the agent with real examples and refine its decisions.</li>
+                        </ol>
+                    </div>
+                    <div class="box">
+                        <h3>AI Agents in Practice</h3>
+                        <ul>
+                            <li><strong>Customer Service Agent:</strong> Handles inquiries, accesses FAQs, and
+                                escalates complex issues.</li>
+                            <li><strong>Data Analyst Agent:</strong> Queries databases, performs calculations, and
+                                generates reports.</li>
+                            <li><strong>Software Development Agent:</strong> Writes code, runs tests, and fixes bugs
+                                based on requirements.</li>
+                            <li><strong>Personal Assistant Agent:</strong> Manages schedules, sends emails, and
+                                provides recommendations.</li>
+                            <li><strong>Research Agent:</strong> Gathers information from various sources, summarizes
+                                findings, and identifies key insights.</li>
+                        </ul>
+                    </div>
+                    <div class="code-panel">
+                        <pre><code># AI Agent Example
+user_goal = "Find the best support article for password resets"
+query = llm.generate(f"What does the user need?\n\nGoal: {user_goal}")
+articles = vector_store.search(query, top_k=3)
+context = "\n\n".join([a.text for a in articles])
+response = llm.generate(f"Use the context below to answer clearly:\n\n{context}\n\nQuestion: {user_goal}")
+print(response)
+</code></pre>
+                    </div>
+                    <div class="box">
+                        <h3>Agent Learner Tips</h3>
+                        <ul>
+                            <li>Set a clear success criterion for each task.</li>
+                            <li>Use examples and edge cases when testing your agent.</li>
+                            <li>Keep tool outputs structured so the model can use them reliably.</li>
+                            <li>Review the agent’s reasoning and correct it when it chooses the wrong action.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
             <section id="workflows" class="section workflows">
                 <div class="section-header">
                     <div>
@@ -830,79 +1101,117 @@ Markdown</code></pre>
                     </div>
                 </div>
                 <div class="section-content">
-                    <p>Learn how AI agents plan, act, use tools, remember context, and coordinate across multiple agents
-                        with human oversight.</p>
+                    <p>Agentic AI is the next step beyond simple agents: it combines planning, memory, tool use, and
+                        multi-agent orchestration to solve more complex, real-world problems. It emphasizes autonomous
+                        decision-making and adaptive behavior.</p>
                     <div class="topic-grid">
                         <article class="topic-card">
-                            <h3>What is an AI Agent?</h3>
-                            <p>Discover the difference between chatbots and autonomous agent systems.</p>
+                            <h3>Autonomous Decision-Making</h3>
+                            <p>Agents independently decide actions based on goals, observations, and available tools,
+                                adapting to dynamic environments.</p>
                         </article>
                         <article class="topic-card">
-                            <h3>Agent Architecture</h3>
-                            <p>Study planning, memory, tool use, and execution loops.</p>
+                            <h3>Adaptive Learning & Memory</h3>
+                            <p>Agents learn from past interactions, store relevant information, and retrieve knowledge
+                                to improve future performance and decision-making.</p>
                         </article>
                         <article class="topic-card">
-                            <h3>Multi-Agent Systems</h3>
-                            <p>See how agents coordinate, delegate tasks, and solve complex problems.</p>
+                            <h3>Complex Task Orchestration</h3>
+                            <p>Break down intricate problems into manageable sub-tasks, coordinate actions, and
+                                synthesize results from multiple tools or sub-agents.</p>
                         </article>
                         <article class="topic-card">
-                            <h3>Hugging Face Agents</h3>
-                            <p>Explore agent workflows with Hugging Face Transformers, datasets, and model deployment.
-                            </p>
+                            <h3>Tool Integration & Extension</h3>
+                            <p>Seamlessly incorporate diverse external tools (APIs, databases, web search) to expand
+                                capabilities and interact with the real world.</p>
                         </article>
                         <article class="topic-card">
-                            <h3>Human-in-the-Loop</h3>
-                            <p>Learn how to keep humans involved for oversight, correction, and accountability.</p>
+                            <h3>Proactive Problem Solving</h3>
+                            <p>Agents can anticipate issues, proactively seek solutions, and execute multi-step plans
+                                without constant human intervention.</p>
+                        </article>
+                        <article class="topic-card">
+                            <h3>Human-in-the-Loop Design</h3>
+                            <p>Implement mechanisms for human oversight, feedback, and intervention to ensure safety,
+                                ethical alignment, and performance tuning.</p>
                         </article>
                     </div>
-
+                    <div class="box">
+                        <h3>Agentic AI Learning Track</h3>
+                        <ol>
+                            <li>Build a simple LLM-based assistant first.</li>
+                            <li>Add retrieval from documents or a knowledge base.</li>
+                            <li>Integrate one tool, such as search or a calculator.</li>
+                            <li>Add memory for user preferences and recent tasks.</li>
+                            <li>Enable the agent to plan and revise multiple actions.</li>
+                            <li>Experiment with multiple agents collaborating on a shared goal.</li>
+                        </ol>
+                    </div>
+                    <div class="box">
+                        <h3>Advanced Agentic Concepts</h3>
+                        <ul>
+                            <li><strong>Self-Correction:</strong> Agents identify and rectify their own mistakes or
+                                inefficient actions.</li>
+                            <li><strong>Multi-Agent Systems (MAS):</strong> Designing and orchestrating teams of agents
+                                with specialized roles to achieve common goals.</li>
+                            <li><strong>Cognitive Architectures:</strong> Building agents with human-like cognitive
+                                functions like perception, attention, and reasoning.</li>
+                            <li><strong>Emotional AI:</strong> Developing agents that can understand, interpret, and
+                                respond to human emotions (ethically and safely).</li>
+                            <li><strong>Emergent Behavior:</strong> Observing complex, unprogrammed behaviors arising
+                                from simple agent interactions within a system.</li>
+                        </ul>
+                    </div>
                     <div class="code-panel">
-                        <pre><code>Goal
-  ↓
-Think
-  ↓
-Plan
-  ↓
-Use Tools
-  ↓
-Observe Results
-  ↓
-Improve Plan
-  ↓
-Complete Task</code></pre>
+                        <pre><code># Agentic AI pseudocode
+user_goal = "Plan a training session on RAG and LLMs"
+plan = planner.create_plan(user_goal)
+steps = plan.break_into_steps()
+results = []
+for step in steps:
+    if step.requires_search:
+        data = search_tool.run(step.query)
+    elif step.requires_math:
+        data = calculator.run(step.expression)
+    else:
+        data = llm.generate(step.prompt)
+    results.append(data)
+summary = llm.generate("Combine these step results into a learning plan:")
+print(summary)
+</code></pre>
                     </div>
                     <div class="box">
-                        <h3>Quick Learner Tips</h3>
+                        <h3>Agentic AI Example Use Cases</h3>
                         <ul>
-                            <li>Start with a clear goal, then decide which tools the agent needs.</li>
-                            <li>Use memory for context and avoid repeating the same state manually.</li>
-                            <li>Keep agent actions simple and test each step before chaining them.</li>
+                            <li><strong>Learning coach:</strong> builds a study plan, gathers resources, and explains
+                                concepts step by step.</li>
+                            <li><strong>Research assistant:</strong> collects evidence from papers, summarizes findings,
+                                and generates recommendations.</li>
+                            <li><strong>Automation agent:</strong> reads system status, executes remediation tools, and
+                                reports updates.</li>
+                            <li><strong>Customer support flow:</strong> auto-triages requests, consults knowledge bases,
+                                and suggests resolutions.</li>
                         </ul>
                     </div>
                     <div class="box">
-                        <h3>Agentic AI Examples</h3>
+                        <h3>Agentic AI Learner Tips</h3>
                         <ul>
-                            <li>Research assistant that reads documents, queries APIs, and summarizes findings with tool
-                                calls.</li>
-                            <li>Customer support agent that uses CRM, knowledge search, and escalation rules.</li>
-                            <li>Developer helper that inspects repositories, runs tests, and proposes fixes.</li>
-                            <li>Operations assistant that monitors systems, diagnoses issues, and creates incident
-                                reports.</li>
-                            <li>Hugging Face-powered agent using Transformers, `datasets`, and `spaces` for data-driven
-                                workflows.</li>
+                            <li>Focus on one improvement at a time: prompt design, then retrieval, then tool use.</li>
+                            <li>Use trace logs to inspect how the agent decides and what tools it calls.</li>
+                            <li>Keep prompt templates separate from system logic for easier tuning.</li>
+                            <li>Start with constrained tasks before opening up broader agent freedom.</li>
+                            <li>Measure success by correctness, tool efficiency, and user satisfaction.</li>
                         </ul>
                     </div>
                     <div class="box">
-                        <h3>AI Concepts & Use Cases</h3>
+                        <h3>Agentic AI Tools and Frameworks</h3>
                         <ul>
-                            <li>Action planning: break tasks into smaller steps and choose tools intelligently.</li>
-                            <li>Memory: remember user preferences, past decisions, and prior results across sessions.
+                            <li><strong>LangChain:</strong> for prompt chains, tool wrappers, and agent executors.</li>
+                            <li><strong>LangGraph:</strong> for visual workflows and orchestration diagrams.</li>
+                            <li><strong>CrewAI:</strong> for multi-agent planning and team collaboration.</li>
+                            <li><strong>AutoGen:</strong> for multi-turn, multi-agent interaction flows.</li>
+                            <li><strong>Hugging Face:</strong> for model hosting, datasets, and deployment via Spaces.
                             </li>
-                            <li>Tool integration: combine search, calculators, code execution, and API access.</li>
-                            <li>Multi-agent coordination: delegate subtasks to specialized agents and merge outcomes.
-                            </li>
-                            <li>Use cases: intelligent automation, knowledge retrieval, content generation, code
-                                assistants, and business process orchestration.</li>
                         </ul>
                     </div>
                 </div>
@@ -1683,6 +1992,39 @@ print(response)</code></pre>
                         toggle.setAttribute('aria-expanded', 'false');
                         nav.classList.remove('is-open');
                     }
+                });
+            }
+            // Start Here carousel
+            var carousel = document.querySelector('.carousel-card');
+            var slides = document.querySelectorAll('.carousel-slide');
+            var dots = document.querySelectorAll('.carousel-dot');
+            if (carousel && slides.length && dots.length)
+            {
+                var currentSlide = 0;
+                var showSlide = function (index)
+                {
+                    slides.forEach(function (slide, slideIndex)
+                    {
+                        slide.classList.toggle('is-active', slideIndex === index);
+                    });
+                    dots.forEach(function (dot, dotIndex)
+                    {
+                        dot.classList.toggle('is-active', dotIndex === index);
+                    });
+                };
+                var nextSlide = function ()
+                {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    showSlide(currentSlide);
+                };
+                setInterval(nextSlide, 4500);
+                dots.forEach(function (dot, index)
+                {
+                    dot.addEventListener('click', function ()
+                    {
+                        currentSlide = index;
+                        showSlide(currentSlide);
+                    });
                 });
             }
             // Back to top button
