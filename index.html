@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -433,16 +433,46 @@
                             <h3>Large Language Models (LLMs)</h3>
                             <p>LLMs are AI models trained to predict and generate language. They power chatbots,
                                 summarization, translation, and knowledge retrieval.</p>
+                            <p>Key ideas:</p>
+                            <ul>
+                                <li>They are trained on huge amounts of text to learn patterns, language structure, and
+                                    context.</li>
+                                <li>They generate text by predicting the next token based on the prompt and prior
+                                    context.</li>
+                                <li>They can be used for chat, coding help, summarization, search, classification, and
+                                    automation.</li>
+                                <li>They often work best when combined with tools, retrieval, or external data via MCP
+                                    and RAG.</li>
+                            </ul>
                         </article>
                         <article class="topic-card">
                             <h3>Transformers</h3>
                             <p>Transformers use attention to process sequences in parallel. They are the foundation for
                                 modern LLMs and multimodal models.</p>
+                            <p>Key ideas:</p>
+                            <ul>
+                                <li>They learn which words or tokens matter most in context.</li>
+                                <li>They handle long text better than older recurrent models.</li>
+                                <li>They power chatbots, translation, summarization, and embeddings.</li>
+                                <li>Libraries like Hugging Face `transformers` make them easy to load, fine-tune, and
+                                    deploy.</li>
+                            </ul>
                         </article>
                         <article class="topic-card">
                             <h3>Tokens and Embeddings</h3>
                             <p>Text is broken into tokens; embeddings convert tokens into numeric vectors that capture
                                 meaning and relationships.</p>
+                            <p>Key ideas:</p>
+                            <ul>
+                                <li>Tokenization splits text into smaller units like words, subwords, or characters.
+                                </li>
+                                <li>Embeddings represent each token or sentence as a vector, so similar meanings appear
+                                    closer together.</li>
+                                <li>These vectors are used in search, recommendation, clustering, and
+                                    retrieval-augmented generation.</li>
+                                <li>Models like sentence-transformers help create embeddings for semantic similarity and
+                                    document search.</li>
+                            </ul>
                         </article>
                         <article class="topic-card">
                             <h3>Prompt Engineering</h3>
@@ -453,6 +483,17 @@
                             <h3>Retrieval-Augmented Generation (RAG)</h3>
                             <p>RAG combines retrieval from documents with generation. It helps models answer questions
                                 using up-to-date or domain-specific knowledge.</p>
+                            <p>Key ideas:</p>
+                            <ul>
+                                <li>It first searches a knowledge base or vector database for relevant documents or
+                                    chunks.</li>
+                                <li>It then adds those retrieved results to the model prompt so the answer is grounded
+                                    in evidence.</li>
+                                <li>It is useful when the model needs current facts, private company data, or
+                                    domain-specific context.</li>
+                                <li>It reduces hallucinations because the answer is tied to actual retrieved content
+                                    instead of only model memory.</li>
+                            </ul>
                         </article>
                         <article class="topic-card">
                             <h3>Fine-Tuning</h3>
@@ -468,6 +509,17 @@
                             <h3>Multimodal AI</h3>
                             <p>Multimodal AI handles text, images, audio, and video. It enables richer experiences like
                                 image captioning and voice-assisted workflows.</p>
+                            <p>Key ideas:</p>
+                            <ul>
+                                <li>It combines multiple input types, such as text + image or audio + video, in the same
+                                    model.</li>
+                                <li>It can understand visual context, describe scenes, answer questions about images,
+                                    and transcribe speech.</li>
+                                <li>It is used in assistant apps, document analysis, accessibility tools, and product
+                                    search.</li>
+                                <li>These systems often connect vision, audio, and text encoders to a shared reasoning
+                                    model.</li>
+                            </ul>
                         </article>
                     </div>
                     <div class="box popular-examples">
@@ -603,6 +655,16 @@
                         <div class="box">
                             <h3>Why use RAG?</h3>
                             <p>It reduces hallucinations and improves relevance for factual, up-to-date answers.</p>
+                            <ul>
+                                <li><strong>Grounded answers:</strong> The model uses retrieved documents as evidence
+                                    instead of guessing from memory.</li>
+                                <li><strong>Fresher information:</strong> You can add new files, docs, or data sources
+                                    without retraining the whole model.</li>
+                                <li><strong>Private and domain-specific knowledge:</strong> Useful for company policies,
+                                    internal wikis, support articles, and research documents.</li>
+                                <li><strong>Better trust:</strong> Answers can be linked to the source text, which helps
+                                    review and auditing.</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="box">
@@ -896,6 +958,21 @@ trainer.save_model("./fine-tuned-model")</code></pre>
                             <li>Use `datasets.load_dataset` for CSV, JSON, text, or custom training data.</li>
                             <li>Publish fine-tuned models to the Hugging Face Hub.</li>
                             <li>Deploy demos and interactive apps in Hugging Face Spaces.</li>
+                        </ul>
+                        <p><strong>Why use Hugging Face?</strong> It gives developers a huge open-source model library,
+                            easy access to pre-trained checkpoints, reusable datasets, and a simple Python ecosystem
+                            through `transformers`, `datasets`, and `huggingface_hub`. Teams use it to prototype
+                            quickly, compare models, fine-tune for specific tasks, and integrate models into AI agents,
+                            RAG apps, and MCP tools without building everything from scratch.</p>
+                        <ul>
+                            <li><strong>Model access:</strong> Try powerful models for chat, classification,
+                                summarization, embeddings, and generation.</li>
+                            <li><strong>Training and fine-tuning:</strong> Use community datasets and open-source
+                                recipes to adapt models to domain-specific tasks.</li>
+                            <li><strong>Production-friendly workflow:</strong> Upload models, share demos, and connect
+                                them to apps and backends.</li>
+                            <li><strong>Open ecosystem:</strong> Works well with Python tools, vector databases, APIs,
+                                and AI agent frameworks.</li>
                         </ul>
                     </div>
                     <div class="card-grid">
@@ -1623,6 +1700,7 @@ print(summary)
                                     pgvector, Azure AI Search.</li>
                                 <li><strong>Agent frameworks:</strong> LangChain, LangGraph, AutoGen, CrewAI, Google
                                     ADK.</li>
+                                <li><strong>MCP tools:</strong> FastMCP, MCP Inspector, Claude Desktop / Cline.</li>
                                 <li><strong>Testing and validation tools:</strong> Playwright, pytest, DeepEval,
                                     Promptfoo, LangSmith.</li>
                                 <li><strong>Monitoring tools:</strong> logging, traces, cost tracking, rate-limit
@@ -2920,6 +2998,9 @@ print(result)</code></pre>
                 <div class="section-content">
                     <p>LangChain is a framework for developing applications powered by language models. It connects
                         prompts, chains, memory, tools, and data sources into production-ready AI workflows.</p>
+                    <p><strong>Why use LangChain?</strong> It helps developers connect LLMs to real application logic:
+                        tool calls, retrieval, memory, and step-by-step orchestration. Instead of writing one-off
+                        prompts, you can build reusable workflows that are easier to test, debug, and scale.</p>
 
                     <div class="feature-boxes">
                         <div class="feature-box">
@@ -3783,6 +3864,76 @@ print(response)</code></pre>
   }
 }</code></pre>
                 </div>
+            </div>
+            <div class="box">
+                <h3>How to configure MCP tools in practice</h3>
+                <p>To configure MCP tools, you usually define a server, choose the transport it uses, and register it in
+                    the client config. The client then discovers the tool metadata and calls it through the MCP
+                    protocol.</p>
+                <ol>
+                    <li><strong>Choose the server type:</strong> local process, remote HTTP/SSE endpoint, or a custom
+                        internal tool server.</li>
+                    <li><strong>Define the tool contract:</strong> each tool needs a name, description, input schema,
+                        output schema, and security rules.</li>
+                    <li><strong>Add authentication:</strong> pass API keys, bearer tokens, or env-based secrets through
+                        the MCP config rather than hard-coding them.</li>
+                    <li><strong>Register the tool in the client:</strong> include the command, args, URL, environment
+                        variables, and any headers required for access.</li>
+                    <li><strong>Test discovery and execution:</strong> verify the model can list the tool, call it, and
+                        read the response before using it in production.</li>
+                </ol>
+                <div class="code-panel">
+                    <pre><code>{
+  "mcpServers": {
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:/Projects/AIConceptsForLearning"
+      ],
+      "env": {
+        "MCP_ALLOWLIST": "read,write"
+      }
+    },
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}</code></pre>
+                </div>
+                <p>For external access outside the current workspace, you can point the client to a remote MCP endpoint
+                    or
+                    to another machine that is already hosting the server.</p>
+                <div class="code-panel">
+                    <pre><code>{
+  "mcpServers": {
+    "company-tools": {
+      "type": "http",
+      "url": "https://mcp.company.local/tools",
+      "headers": {
+        "Authorization": "Bearer ${MCP_TOKEN}"
+      }
+    }
+  }
+}</code></pre>
+                </div>
+                <ul>
+                    <li><strong>Local stdio config:</strong> best for desktop development and private tools.</li>
+                    <li><strong>HTTP/SSE config:</strong> best for shared enterprise services and external tool access.
+                    </li>
+                    <li><strong>Env-based secrets:</strong> safer than embedding keys in code or JSON files.</li>
+                    <li><strong>Tool allowlisting:</strong> limit access to only the tools the workflow needs.</li>
+                </ul>
             </div>
             <div class="box">
                 <h3>How to add a custom MCP configuration</h3>
