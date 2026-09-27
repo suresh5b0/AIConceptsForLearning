@@ -4,6 +4,8 @@ A short note on IDE tools and AI integrations
 
 See [IDE integration guide](IDE_TOOLS.md) for steps to connect Ollama, Claude (Anthropic), OpenAI Codex, and editor/IDE integrations.
 
+A sample MCP configuration for external tools is available in [.vscode/mcp.json](.vscode/mcp.json).
+
 # AI Concepts and AI Agents
 
 ## Hugging Face — models, datasets, Spaces, and quick usage

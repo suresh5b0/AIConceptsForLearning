@@ -10,6 +10,67 @@ Prerequisites
 - Install `ollama` if you want local model hosting: https://ollama.ai
 - A terminal (PowerShell / cmd) and a text editor or IDE (VS Code recommended).
 
+MCP server configuration for external tools
+
+Use MCP to expose external tools like the local filesystem, GitHub, databases, or remote APIs to an AI client. The project includes a sample configuration in [.vscode/mcp.json](.vscode/mcp.json).
+
+Example VS Code MCP config:
+
+```json
+{
+  "inputs": [
+    {
+      "id": "github-token",
+      "type": "promptString",
+      "description": "GitHub personal access token",
+      "password": true
+    }
+  ],
+  "servers": {
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "c:/PROJECTS/AIConceptsForLearning"
+      ]
+    },
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "${input:github-token}"
+      }
+    }
+  }
+}
+```
+
+How to access MCP outside this workspace
+
+- Copy the same JSON into another VS Code workspace or another client that supports MCP.
+- Install the MCP server package on the machine running the client, for example with `npx`.
+- Set the required environment variables or tokens for each server.
+- For remote MCP servers, use the server URL instead of a local command, for example:
+
+```json
+{
+  "servers": {
+    "company-tools": {
+      "type": "http",
+      "url": "https://mcp.company.com/sse",
+      "headers": {
+        "Authorization": "Bearer ${MCP_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+This lets the AI client reach tools outside the current workspace as long as the server is reachable and authenticated.
+
 Environment
 Create a `.env` or set environment variables in your shell:
 
