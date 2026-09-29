@@ -20,6 +20,9 @@ html,
 body {
   margin: 0;
   min-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   scroll-behavior: smooth;
   background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.25), transparent 28%),
     linear-gradient(180deg, #08101f 0%, #0f172a 100%);
@@ -31,6 +34,17 @@ body {
   color: #e2e8f0;
   line-height: 1.7;
   font-size: 16px;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe,
+embed,
+object {
+  max-width: 100%;
+  height: auto;
 }
 
 .section-content p,
@@ -92,6 +106,7 @@ svg {
 }
 
 .page-shell {
+  width: min(100%, 1200px);
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px;
@@ -201,6 +216,7 @@ a:hover {
   top: 0;
   z-index: 15;
   -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
 }
 
 .top-nav a {
@@ -698,6 +714,10 @@ footer {
 }
 
 @media (max-width: 1024px) {
+  .page-shell {
+    padding: 20px;
+  }
+
   .hero {
     grid-template-columns: 1fr;
   }
@@ -709,6 +729,12 @@ footer {
 
   .hero-copy h1 {
     font-size: clamp(2rem, 4vw, 3.4rem);
+  }
+
+  .two-column,
+  .three-column,
+  .playwright-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -782,17 +808,25 @@ footer {
     padding: 18px;
   }
 
-  .hero-copy,
-  .hero-panel,
-  .section-header,
+  .section-header {
+    padding: 22px 22px 0;
+  }
+
   .section-content {
-    padding: 24px;
+    padding: 22px;
   }
 }
 
 @media (max-width: 640px) {
   .page-shell {
-    padding: 14px;
+    padding: 12px;
+  }
+
+  .hero-copy,
+  .hero-panel,
+  .section-header,
+  .section-content {
+    min-width: 0;
   }
 
   .carousel-card {
@@ -839,6 +873,15 @@ footer {
   .hero-copy,
   .hero-panel {
     padding: 20px;
+  }
+
+  .top-nav {
+    padding: 12px 14px;
+  }
+
+  .top-nav a {
+    white-space: normal;
+    line-height: 1.4;
   }
 
   .hero-copy h1 {

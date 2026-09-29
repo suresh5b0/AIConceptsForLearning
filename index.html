@@ -1301,6 +1301,24 @@ Markdown</code></pre>
                         </article>
                     </div>
                     <div class="box">
+                        <h3>AI Agent Quick Overview</h3>
+                        <p>An AI agent is not just a chatbot. It is a system that receives a goal, chooses a plan,
+                            uses tools or data sources, and repeats that loop until the task is complete or a stop
+                            condition is reached.</p>
+                        <ul>
+                            <li><strong>Goal-driven:</strong> The agent works toward a stated objective instead of just
+                                responding to one message.</li>
+                            <li><strong>Tool-aware:</strong> It can call APIs, search the web, query databases, or run
+                                code when needed.</li>
+                            <li><strong>Context-aware:</strong> It uses memory, user context, and previous steps to make
+                                better decisions.</li>
+                            <li><strong>Iterative:</strong> It may plan, act, observe results, and adjust before
+                                finalizing its answer.</li>
+                            <li><strong>Guardrailed:</strong> Good agents include validation, limits, and human approval
+                                for risky actions.</li>
+                        </ul>
+                    </div>
+                    <div class="box">
                         <h3>AI Agent Learning Path</h3>
                         <ol>
                             <li>Understand how LLMs work and how to write clear prompts.</li>
@@ -3099,6 +3117,89 @@ response = executor.invoke(
 print(response["output"])</code></pre>
                         </div>
                     </div>
+
+                    <div class="box">
+                        <h3>How to call tools in LangChain</h3>
+                        <p>In LangChain, tools are usually Python functions wrapped with <code>@tool</code> or with a
+                            <code>Tool</code> object. The model sees the tool description and decides whether to call
+                            it.
+                            Once the tool returns a result, that result is sent back into the LLM so it can continue the
+                            answer.
+                        </p>
+                        <div class="code-panel">
+                            <pre><code>from langchain_core.tools import tool
+from langchain_openai import ChatOpenAI
+from langchain.agents import create_tool_calling_agent, AgentExecutor
+
+@tool
+def search_weather(city: str) -&gt; str:
+    """Get the weather for a city."""
+    weather_map = {
+        "Paris": "22°C, light clouds",
+        "London": "18°C, drizzle",
+        "Tokyo": "27°C, sunny"
+    }
+    return weather_map.get(city, f"No weather data for {city}")
+
+@tool
+def get_stock_price(symbol: str) -&gt; str:
+    """Get a mocked stock price for a ticker symbol."""
+    return f"{symbol}: $142.30"
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+tools = [search_weather, get_stock_price]
+
+agent = create_tool_calling_agent(llm, tools)
+executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+
+result = executor.invoke({
+    "input": "Should I carry an umbrella in Paris today, and what is the price of AAPL?"
+})
+print(result["output"])
+</code></pre>
+                        </div>
+                        <p>Typical flow:</p>
+                        <ul>
+                            <li><strong>Tool definitions:</strong> The function has a docstring and typed arguments.
+                            </li>
+                            <li><strong>Model decides:</strong> The LLM chooses a tool based on the prompt and tool
+                                descriptions.</li>
+                            <li><strong>Tool execution:</strong> LangChain executes the Python function with the chosen
+                                arguments.</li>
+                            <li><strong>Context update:</strong> The result is injected back into the conversation or
+                                agent state.</li>
+                            <li><strong>Final answer:</strong> The model uses the result to respond clearly to the user.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="box">
+                        <h3>Direct tool calling with bind_tools</h3>
+                        <p>You can also call tools directly without a full agent when the task is simple and
+                            predictable.</p>
+                        <div class="code-panel">
+                            <pre><code>from langchain_core.tools import tool
+from langchain_openai import ChatOpenAI
+
+@tool
+def multiply(a: float, b: float) -&gt; float:
+    """Multiply two numbers."""
+    return a * b
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+model_with_tools = llm.bind_tools([multiply])
+
+response = model_with_tools.invoke("Multiply 12 by 7")
+print(response)
+print(response.tool_calls)
+</code></pre>
+                        </div>
+                        <p>This pattern is useful when you want to let the model choose a tool but keep the workflow
+                            simple.
+                            The key idea is that the tool schema is exposed to the model, so the LLM can call it with
+                            the
+                            right arguments and receive a structured result.</p>
+                    </div>
                 </div>
 
                 <div class="two-column">
@@ -3703,6 +3804,62 @@ python examples/langchain_agent.py</code></pre>
                 </div>
             </div>
             <div class="box">
+                <h3>API vs MCP</h3>
+                <p>Think of an API as a way for software to talk to a service, while MCP is a standard for connecting
+                    AI models and agents to tools and resources in a structured, discoverable way.</p>
+                <ul>
+                    <li><strong>API:</strong> Defines endpoints, methods, payloads, and responses for a programmatic
+                        interface. A REST API can expose weather data, payment functions, or document search.</li>
+                    <li><strong>MCP:</strong> Defines how an AI client discovers tools, exchanges structured requests,
+                        and receives results from those tools in a consistent format.</li>
+                    <li><strong>Relationship:</strong> An API may be the underlying service behind an MCP tool. In other
+                        words, MCP can wrap APIs so an AI agent can use them more safely and consistently.</li>
+                    <li><strong>Use case:</strong> APIs are for software-to-software integration. MCP is for AI-to-tool
+                        integration, especially for agents that need to reason, choose, and call tools dynamically.</li>
+                </ul>
+                <div class="table-scroll">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>API</th>
+                                <th>MCP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Main purpose</td>
+                                <td>Connect software systems to a service</td>
+                                <td>Connect AI clients/agents to tools and resources</td>
+                            </tr>
+                            <tr>
+                                <td>Typical use</td>
+                                <td>Fetch data, trigger actions, integrate apps</td>
+                                <td>Discover tools, plan actions, execute structured tool calls</td>
+                            </tr>
+                            <tr>
+                                <td>Focus</td>
+                                <td>Endpoints and payloads</td>
+                                <td>Tool discovery, schemas, security, and interoperability</td>
+                            </tr>
+                            <tr>
+                                <td>Who uses it</td>
+                                <td>Applications and backend services</td>
+                                <td>AI models, agents, and agent frameworks</td>
+                            </tr>
+                            <tr>
+                                <td>Best analogy</td>
+                                <td>A door with a menu of actions</td>
+                                <td>A standard interface for AI to use many tools consistently</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Example: A weather service can have a REST API like <code>/weather?city=Paris</code>. An MCP server
+                    can expose that service as a tool named <code>weather_service</code> with a defined schema,
+                    authentication rules, and structured output for the model to use.</p>
+            </div>
+            <div class="box">
                 <h3>MCP Inspector Tool</h3>
                 <p>The MCP Inspector helps teams review registered tools, validate request and response schemas,
                     and trace tool call lifecycle events.</p>
@@ -3725,6 +3882,101 @@ python examples/langchain_agent.py</code></pre>
                     <li>Support resources, prompts, and tools so a client can discover reliable capabilities before
                         execution.</li>
                 </ul>
+            </div>
+            <div class="box">
+                <h3>FastMCP + FastAPI + MCP Inspector</h3>
+                <p>In practice, many MCP setups use FastAPI for normal HTTP endpoints and FastMCP for exposing a tool
+                    server in a standard way. The Inspector then helps you test that the connection works before wiring
+                    it
+                    into a real agent.</p>
+                <div class="code-panel">
+                    <pre><code># Conceptual example: FastAPI app + FastMCP toolserver
+from fastapi import FastAPI
+from fastmcp import FastMCP
+
+app = FastAPI(title="AI Tool Service")
+mcp = FastMCP("demo-tools")
+
+@mcp.tool()
+def get_weather(city: str) -&gt; dict:
+    return {
+        "city": city,
+        "temperature_c": 23,
+        "condition": "Sunny",
+        "source": "example weather API"
+    }
+
+# Expose MCP over HTTP or mount it into a FastAPI app
+# app.mount("/mcp", mcp.http_app())
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+</code></pre>
+                </div>
+                <ul>
+                    <li><strong>FastAPI</strong> gives you a normal REST API and simple health checks, docs, and
+                        deployment patterns.</li>
+                    <li><strong>FastMCP</strong> wraps your tools in a protocol-friendly interface so an AI client can
+                        discover and call them consistently.</li>
+                    <li><strong>MCP Inspector</strong> is the debugging and validation layer. Use it to inspect tool
+                        metadata, test arguments, and confirm the response format.</li>
+                    <li><strong>Why combine them:</strong> FastAPI handles the HTTP layer; FastMCP defines the AI tool
+                        contract; the Inspector verifies the end-to-end behavior.</li>
+                </ul>
+                <div class="code-panel">
+                    <pre><code># Example: local MCP server config with a tool endpoint
+{
+  "mcpServers": {
+    "weather": {
+      "command": "python",
+      "args": ["./server/weather_mcp_server.py"],
+      "env": {
+        "WEATHER_API_KEY": "${WEATHER_API_KEY}"
+      }
+    }
+  }
+}</code></pre>
+                </div>
+                <p>Use the Inspector to verify that the server lists available tools, accepts expected inputs, and
+                    returns
+                    the schema you expect. If the tool fails validation, fix the metadata or parameter types before
+                    using it
+                    in a production agent.</p>
+            </div>
+            <div class="box">
+                <h3>How to verify MCP is working</h3>
+                <p>Verification is an important step. A tool may look correct in code but still fail because of auth,
+                    schema,
+                    transport, or permissions issues.</p>
+                <ol>
+                    <li><strong>Check discovery:</strong> confirm the client can list available MCP tools.</li>
+                    <li><strong>Test schema validation:</strong> send valid input and invalid input to verify error
+                        handling.</li>
+                    <li><strong>Verify auth:</strong> ensure tokens or environment variables are loaded correctly.</li>
+                    <li><strong>Check the output:</strong> confirm the model receives the expected JSON structure and
+                        that
+                        values are typed correctly.</li>
+                    <li><strong>Test end-to-end:</strong> have the agent call the tool from a real prompt and inspect
+                        the
+                        decision and result.</li>
+                </ol>
+                <div class="code-panel">
+                    <pre><code># Example verification flow
+# 1. List tools
+# 2. Call a tool with valid inputs
+# 3. Call again with invalid input
+# 4. Confirm schema and auth checks pass
+
+curl http://localhost:8000/health
+curl -X POST http://localhost:8000/mcp/tool/get_weather \
+  -H "Content-Type: application/json" \
+  -d '{"city":"Paris"}'
+</code></pre>
+                </div>
+                <p>In a real workflow, successful verification means the agent can discover the tool, the tool responds
+                    with a
+                    valid structure, and the result is useful to the model without breaking the task flow.</p>
             </div>
             <div class="box">
                 <h3>What are the External Tools in MCP?</h3>
